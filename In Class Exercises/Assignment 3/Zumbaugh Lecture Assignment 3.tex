@@ -1,0 +1,34 @@
+\documentclass[12pt]{article}
+\title{CIS 751 Lecture Assignment 3}
+\author{Chuck Zumbaugh}
+
+\begin{document}
+\maketitle
+
+To overflow the buffer and cause system() to execute "/bin/bash" we would need to not only overwrite the EIP with the address of the system function, but also emulate $call\ system$. If this was a legitimate instruction, the arguments to system would first be pushed to the stack, followed by the address to return to after executing system(). Thus, we can overflow the buffer as follows:
+\begin{itemize}
+\item Write a NOP sled the size of the offset
+\item Overwrite the EIP with the address to system
+\item Overwrite the next 4 bytes with the address to return to after system (the EIP that would have been saved had $call\ system$ been executed.
+\item Overwrite the next 4 bytes with the command to execute (ie. "/bin/bash")
+\end{itemize}
+
+Thus, the stack will look something like:
+\bigbreak
+\begin{tabular}{|c|}
+\hline
+\textit{Lower Addresses} \\
+\hline
+NOP sled \\
+\hline
+Address to \textbf{system} (EIP) \\
+\hline
+Address to return to after \textbf{system} is finished \\
+\hline
+Arguments to pass to \textbf{system} (\textit{ie. /bin/bash}) \\
+\hline
+\textit{Higher Addresses} \\
+\hline
+\end{tabular}
+
+\end{document}
