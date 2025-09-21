@@ -29,9 +29,9 @@ Metasploit was used to generate shellcode for a reverse shell using `payload/lin
 | 0xbffff720              | NOP Sled                           |
 | ...                     | NOP Sled                           |
 | ...                     | Shellcode (198 bytes)              |
-| ...                     | \x20\xf7\xff\xbf                   |
-| 0xbffffafc (EIP)        | \x20\xf7\xff\xbf (Overwrite EIP)   | 
-| ...                     | \x20\xf7\xff\xbf (remaining replications) | 
+| ...                     | `\x20\xf7\xff\xbf`                |
+| 0xbffffafc (EIP)        | `\x20\xf7\xff\xbf` (Overwrite EIP)   | 
+| ...                     | `\x20\xf7\xff\xbf` (remaining replications) | 
 | Higher memory addresses |                                    |     
 
 
@@ -52,7 +52,7 @@ Similar shellcode was generated using Metasploit with the same `LHOST` and `LPOR
 | :---------------------: | :--------------------------------: |
 | Lower memory addresses  |                                    |
 | Random stack address    | Padding (NOPs)                     |
-| EIP                     | \xa7\x2b\x12\x42 (`jmp esp` address) |
+| EIP                     | `\xa7\x2b\x12\x42` (`jmp esp` address) |
 | EIP + 4                 | Start of NOP sled                  |
 | ...                     | NOP sled                           |
 | ...                     | Shellcode                          |
