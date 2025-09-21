@@ -1,4 +1,6 @@
 # Assignment 1 Documentation
+### Written by Chuck Zumbaugh
+### Collaborators: None
 
 ## Running the exploits
 There are two exploits: 1) `redhat8_exploit.sh` that attacks the RedHat 8 machine and 2) `redhat9_exploit.sh` that attacks the RedHat 9 machine. Both exploits generate a reverse shell for a listener on port 2222 at 192.168.219.134, and attack the machine at port 8888. The IP addresses for the victim machines are shown in the table below. To run the exploit, ensure the attacking machine is listening on the appropriate port:
@@ -26,11 +28,11 @@ Metasploit was used to generate shellcode for a reverse shell using `payload/lin
 | :---------------------: | :--------------------------------: |
 | Lower memory addresses  |                                    |
 | ...                     | NOP sled                           |
-| 0xbffff720              | NOP Sled                           |
+| `0xbffff720`              | NOP Sled                           |
 | ...                     | NOP Sled                           |
 | ...                     | Shellcode (198 bytes)              |
 | ...                     | `\x20\xf7\xff\xbf`                |
-| 0xbffffafc (EIP)        | `\x20\xf7\xff\xbf` (Overwrite EIP)   | 
+| `0xbffffafc` (EIP)        | `\x20\xf7\xff\xbf` (Overwrite EIP)   | 
 | ...                     | `\x20\xf7\xff\xbf` (remaining replications) | 
 | Higher memory addresses |                                    |     
 
