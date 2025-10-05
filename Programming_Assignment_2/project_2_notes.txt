@@ -1,0 +1,19 @@
+Project 2 Notes
+
+Attacking the Windows 7 machine using a buffer overflow
+
+Offset: The offset was measured as 4093 bytes. This was done using metasploit
+To create the pattern: msf-pattern_create -l 5000
+To find offset: msf-pattern_offset -l 5000 -q 67463467
+
+To search to a location (ex jmp esp) we can search using windows debugger:
+s <start_address> L? <number_of_bytes> <search_string>
+Example:
+s 0x1000000 L? 0x101000 ff e4
+
+Can look at memory locations of dll's with narly:
+!load narly
+!nmod
+
+Looks like there is a ff e4 (jmp esp) in the apache lib. Address is 0x004044f4
+This address has a null byte though, and will mess with the offset at the EIP. There is another jmp esp at 0x1005bc0f and 0x10075043
