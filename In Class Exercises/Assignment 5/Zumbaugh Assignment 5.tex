@@ -1,0 +1,40 @@
+\documentclass[12pt]{article}
+\author{Chuck Zumbaugh}
+\title{CIS 751 Lecture Assignment 5}
+
+\usepackage{listings}
+
+\begin{document}
+\maketitle
+
+Let's assume we have a stack that looks something like the below:
+\bigbreak
+\begin{tabular}{|c|}
+\hline
+Lower Addresses \\
+\hline
+EBP \\
+\hline
+EIP \\
+\hline
+Format string address \\
+\hline
+$addr$ \\
+\hline
+Rest of input \\
+\hline
+Higher addresses \\
+\hline
+\end{tabular}
+\bigbreak
+
+And also we have a program with the following:
+
+\begin{lstlisting}[language=c]
+int i = 0; // Some variable used in printf()
+printf(input, &i); // Input is some user created data
+\end{lstlisting}
+
+We could then overwrite $i$, say with 11, using the string $"\textbf{Hello world\%n}"$. However, we can also overwrite arbitrary stack locations provided we know the address we want to write to. When printf() encounters a format specifier it will call va\_arg() and return the argument pointed to by va\_list. Thus, we can specify an address to write to, and a number of format specifiers to move the va\_list pointer to the address we want to write to. Thus, we would need to move the pointer from somewhere in \textit{Rest of input} to $addr$ using input specifiers. Then, when \%n is encountered, it will write the number of bytes in printf() to that address.
+
+\end{document}

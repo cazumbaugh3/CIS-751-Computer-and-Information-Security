@@ -4,3 +4,4 @@
 *.out
 *.run.xml
 *.gz
+*.DS_Store

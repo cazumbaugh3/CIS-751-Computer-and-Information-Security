@@ -1,5 +1,8 @@
 # Assignment 2 Documentation
 
+### Written By: Chuck Zumbaugh
+### Collaborators: None
+
 ## Running the exploit
 The exploit is configured to generate a reverse shell for a listener on port 8888 at 192.168.219.134. To run the exploit, ensure the attacking machine is listening on the appropriate port:
 ```
