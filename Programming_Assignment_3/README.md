@@ -28,12 +28,13 @@ if ((matching_pattern = (char *) malloc(strlen(name) + 17)) == NULL) {
 ...
 
 strcpy(matching_pattern, name); 
-strcat(matching_pattern, ":");
+strcat(matching_pattern, ":"); // strlen(name) + 1 bytes used
 strcat(matching_pattern, ssn); // We can cause an overflow here by passing > 16 bytes
 ```
 
 Clearly, there is a vulnerability in that the buffer size is determined solely by name and there is no check that `ssn` will fit in the remaining 16 bytes. After constructing `matching_pattern`, the score file is scanned anc checked against the input as follows:
 ```
+// line is mutated with each iteration
 while (fgets(line, 120, scorefile) != NULL) {
     if (match_point = str_prefix(matching_pattern, line)) {
         ... // Code not reached assuming str_prefix returns NULL
@@ -48,4 +49,39 @@ free(score);
 free(line);
 ```
 
-Clearly we can exploit this using an unlink based attack, but we need to be careful with how this is structured. When there are no matches in the file, which we can safely assume if we are passing an exploit, the `matching_pattern` and `score` data is not changed, but `line` is mutated during the `while` loop above.
+Clearly we can exploit this using an unlink based attack, but we need to ensure the payload is not modified by the program prior to `free()` being called. When there are no matches in the file, which we can safely assume if we are passing an exploit, the `matching_pattern` and `score` data are not changed. However, `line` is mutated during the `while` loop above so the entire payload must be contained within `matching_pattern` and `score`. This is not a problem since we can make `matching_payload` whatever size we need through the `name` argument and use `score` to setup a fake heap structure. The overall strategy will be to use the `name` input to contain the NOP sled and shellcode and use the `SSN` input to fill the remaining portion of the buffer, and overwrite the `score` buffer to create a fake heap structure that will cause an unlink to occur when `free(matching_pattern)` is called.
+
+## Finding the relevant addresses
+### Address of `free`
+Since `malloc` and `free` are part of the C standard library, the assembly instructions will contain stubs to these functions that will be resolved at runtime by the dynamic linker. Specifically, this stub is the address of the entry in the PLT, which will either return the address from the GOT if it has been previously used, or call the resolver to retrieve the address. For this exploit, we are interested in modifying the address of `free` in the GOT table to point to our payload. This location of GOT entries can be retrieved using
+```
+$ objdump -R getscore_heap
+``` 
+Which shows the following for `free`:
+```
+...
+08049d30 R_386_JUMP_SLOT free
+```
+
+Thus, the address we need to use in the forward pointer is `0x08048D24`.
+
+### Address of `matching_pattern`
+The `getscore_heap` program will print out the address of `matching_pattern`, `score`, and `line` when run, so we can get the address of `matching_pattern` by simply running it with junk input:
+```
+./getscore_heap aaa aaa
+
+Address of matching_pattern : 0x8049ec8
+```
+
+Most programs won't do this though, and in such cases we can use GDB to find the address of variables. To do this, we can set a breakpoint at some point in the program after `matching_pattern` has been allocated. By running `x &matching_pattern`, we will get the location on the stack that contains the address of `matching_pattern`.
+
+## Determining the length of the buffer
+Since we have access to the source code, it is quite trivial to determine the length of the buffer. The program allocates `strlen(name) + 17` bytes, so we need to know the length of the input. As previously mentioned, the `name` argument must contain the exploit prefix, the `jmp 0x6` instruction, the overwrite (what will be replaced by the GOT address), and the shellcode. The below table contains the size of each component.
+
+|  Component      | Size (bytes)       |
+| :-------------: | :----------------: |
+| Prefix          | 8                  |
+| NOP JMP         | 8                  |
+| Overwrite       | 4                  |
+| Shellcode       | 46                 |
+| **Total**       | **66**               |
