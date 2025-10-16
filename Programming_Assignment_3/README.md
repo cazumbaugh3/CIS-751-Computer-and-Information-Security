@@ -4,19 +4,19 @@
 
 ## Running the exploit
 There are two files included, a `build_exploit.c` file that contains the source code and a compiled binary, `build_exploit`. When run, the compiled binary will generate the two inputs required by `getscore_heap` and spawn a new shell that contains the shell variables `NAME` and `SSN`. To run the exploit, simply build the shell variables and pass them to the program as follows:
-```
+```sh
 $ ./build_exploit                   # Builds the shell variables NAME and SSN
 $ ./getscore_heap $NAME $SSN        # Run the program with the generated inputs
 ```
 
 The exploit builder can be compiled from the source if needed using GCC:
-```
+```sh
 gcc -o build_exploit build_exploit.c
 ```
 
 ## Overview and objective
 The objective is to exploit a buffer overflow vulnerability in the `getscore_heap` program and get the program to return a shell. This program accepts two pieces of user input, a name and a SSN, that are then used to look up data in a `score.txt` file and return the matching data. To do this, it allocates 3 character buffers on the heap: `matching_pattern`, `score`, and `line` (in that order). While the size of `score` and `line` are fixed (10 and 120 bytes, respectively), the size of `matching_pattern` is the length of the `name` argument + 17. The `matching_pattern` is used to store the text pattern to search for, and is built as follows:
-```
+```c
 ...
 
 // The length of the buffer is determined by the name argument
@@ -33,7 +33,7 @@ strcat(matching_pattern, ssn); // We can cause an overflow here by passing > 16 
 ```
 
 Clearly, there is a vulnerability in that the buffer size is determined solely by name and there is no check that `ssn` will fit in the remaining 16 bytes. After constructing `matching_pattern`, the score file is scanned anc checked against the input as follows:
-```
+```c
 // line is mutated with each iteration
 while (fgets(line, 120, scorefile) != NULL) {
     if (match_point = str_prefix(matching_pattern, line)) {
@@ -43,7 +43,7 @@ while (fgets(line, 120, scorefile) != NULL) {
 ```
 
 After reading through the file the program reaches the end where these variables are freed as follows:
-```
+```c
 free(matching_pattern);
 free(score);
 free(line);
@@ -54,7 +54,7 @@ Clearly we can exploit this using an unlink based attack, but we need to ensure 
 ## Finding the relevant addresses
 ### Address of `free`
 Since `malloc` and `free` are part of the C standard library, the assembly instructions will contain stubs to these functions that will be resolved at runtime by the dynamic linker. Specifically, this stub is the address of the entry in the PLT, which will either return the address from the GOT if it has been previously used, or call the resolver to retrieve the address. For this exploit, we are interested in modifying the address of `free` in the GOT table to point to our payload. This location of GOT entries can be retrieved using
-```
+```sh
 $ objdump -R getscore_heap
 ``` 
 Which shows the following for `free`:
@@ -67,7 +67,7 @@ Thus, the address we need to use in the forward pointer is `0x08048D24`.
 
 ### Address of `matching_pattern`
 The `getscore_heap` program will print out the address of `matching_pattern`, `score`, and `line` when run, so we can get the address of `matching_pattern` by simply running it with junk input:
-```
+```sh
 ./getscore_heap aaa aaa
 
 Address of matching_pattern : 0x8049ec8
@@ -95,6 +95,7 @@ NAME = Prefix + NOP_JMP + Overwrite + Shellcode
 ```
 
 As mentioned in the previous section, we need an additional 14 bytes to fill the buffer, and for that we shall use NOPs. The size of the next chunk is 16 bytes (10 declared, but allocated in blocks of 8), so we need to overwrite the initial 8 bytes of metadata with `0xFFFFFFFF`, place the GOT address - 12, followed by the address of `jmp 0x6` - 6. Thus the `SSN` input is composed as follows:
+
 | Component | Data |
 | :------:  | ---- |
 | NOP_FILL | `\x90` * 14 |
