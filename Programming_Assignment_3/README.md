@@ -80,7 +80,7 @@ The `getscore_heap` program will print out the address of `matching_pattern`, `s
 Most programs won't do this though, and in such cases we can use GDB to find the address of variables. To do this, we can set a breakpoint at some point in the program after `matching_pattern` has been allocated. By running `x &matching_pattern`, we will get the location on the stack that contains the address of `matching_pattern`.
 
 ## Determining the length of the buffer
-Since we have access to the source code, it is quite trivial to determine the length of the buffer. The program allocates `strlen(name) + 17` bytes, so we need to know the length of the input. As previously mentioned, the `name` argument must contain the exploit prefix, the `jmp 0x6` instruction, the overwrite (what will be replaced by the GOT address), and the shellcode. The below table contains the size of each component.
+Since we have access to the source code, it is quite trivial to determine the length of the buffer. The program allocates `strlen(name) + 17` bytes, so we need to know the length of the input. As previously mentioned, the `name` argument must contain the exploit prefix, the `jmp +4` instruction, the overwrite (what will be replaced by the GOT address), and the shellcode. The below table contains the size of each component.
 
 |  Component      | Size (bytes)       |
 | :-------------: | :----------------: |
@@ -98,7 +98,7 @@ The name argument is generated as follows, where `+` indicates concatenation:
 NAME = Prefix + NOP_JMP + Overwrite + Shellcode
 ```
 
-As mentioned in the previous section, we need an additional 14 bytes to fill the buffer, and for that we shall use NOPs. The size of the next chunk is 16 bytes (10 declared, but allocated in blocks of 8), so we need to overwrite the initial 8 bytes of metadata with `0xFFFFFFFF`, place the GOT address - 12, followed by the address of `jmp 0x6` - 6. Thus the `SSN` input is composed as follows:
+As mentioned in the previous section, we need an additional 14 bytes at the start of `SSN` to fill the buffer, and for that we shall use NOPs. The size of the next chunk is 16 bytes (10 declared, but allocated in blocks of 8), so we need to overwrite the initial 8 bytes of metadata with `0xFFFFFFFF`, place the GOT address - 12, followed by the address of `jmp +4` - 6. Thus the `SSN` input is composed as follows:
 
 | Component | Data |
 | :------:  | ---- |
@@ -116,20 +116,20 @@ With the `SSN` portion, we are creating a fake heap chunk underneath the `matchi
 ## Executing the attack
 To provide a detailed overview of how the attack works we will examine the heap throughout execution. Figure 1 shows the state of the region of interest following allocation, but before any data has been copied to memory. The size of the first buffer is listed as `0x59`, which is 89. Since the last bit is used to indicate if the previous chunk is in use, the size of this chunk is 88 as expected. The size of the next chunk (score) is `0x11`, or 17, which is 16 bytes as expected.
 
-![Figure 1: Memory post-allocation](./allocated_memory.png)
+![Memory post-allocation](./allocated_memory.png)
 
-Figure 2 shows the state after both `name` and `SSN` have been copied to the buffer and the overflow has occurred. The first 2 machine words following the metadata are NOPs that will be overwritten with forward and reverse pointers when this chunk is linked. We then have a small NOP slide and the `jmp 0x6` instruction, followed by the shellcode. The `3A` byte near `0x8049f0C` indicates the ":" character that splits the `name` and `SSN` inputs. This is followed by 14 NOPs to reach the end of the `name` buffer. The first 2 words of the next chunk are set to `0xFFFFFFFF`, the next word is set to the GOT address - 12, and the following word is the address we wish to return to.
+Figure 2 shows the state after both `name` and `SSN` have been copied to the buffer and the overflow has occurred. The first 2 machine words following the metadata are NOPs that will be overwritten with forward and reverse pointers when this chunk is linked. We then have a small NOP slide and the `jmp +4` instruction, followed by the shellcode. The `3A` byte near `0x8049f0C` indicates the ":" character that splits the `name` and `SSN` inputs. This is followed by 14 NOPs to reach the end of the `name` buffer. The first 2 words of the next chunk are set to `0xFFFFFFFF`, the next word is set to the GOT address - 12, and the following word is the address we wish to return to.
 
-![Figure 2: Memory following buffer overflow](./overflown_memory.png)
+![Memory following buffer overflow](./overflown_memory.png)
 
 Figure 3 shows the state just prior to `free(matching_pattern)`. This is quite similar to Figure 2, except the data in the `line` buffer has been modified.
 
-![Figure 3: Memory just prior to free](./before_free.png)
+![Memory just prior to free](./before_free.png)
 
 Figure 4 shows the state just after `free(matching_pattern)` has been called. There are a few key changes to note. As mentioned above, the first 8 bytes of NOPs have been overwritten with the forward and reverse pointers for the freed list. Additionally, the word at `0x8049edc` has been changed from the overwrite (`0x5a5a5a5a`) to the address to the GOT entry (`0x08049d24`).
 
-![Figure 4: Memory just after free](./after_free.png)
+![Memory just after free](./after_free.png)
 
 At this point, we should get a shell since we expect the address at the GOT entry for free to have been replaced with the address to our payload. As shown below, this is what happens when we run this outside of GDB.
 
-![Figure 5: Success](./success.png)
+![Success](./success.png)
