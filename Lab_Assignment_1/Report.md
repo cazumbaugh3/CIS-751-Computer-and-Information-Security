@@ -113,3 +113,13 @@ void sleep(int s)
 We first do this in a non-privileged environment (the task7 program is owned by seed and is not Set UID). As can be seen in Figure 8, when task7 is executed we see the string `"I am not sleeping"` printed, as the malicious function was executed. However, when task7 is owned by root and is a Set UID program (escalated privileges), we do not see this string printed and the program simply slept for a second before exiting. This is because the `LD_PRELOAD` environment variable is not passed to the new shell in a Set UID context. This is a security feature to prevent exactly this.
 
 ![Task 7a](./Screenshots/task7_a.png)
+
+Things work a little different when we execute task7 in a root account where the `LD_PRELOAD` variable was exported by root. As shown in Figure 9, our program calls the malicious `sleep()` function demonstrating that the `LD_PRELOAD` environment variable was passed to the child process despite task7 being a root-owned Set UID program.
+
+![Task 7b](./Screenshots/task7_b.png)
+
+Making the program a non-root owned Set UID program and exporing `LD_PRELOAD` in a different, non-root, account yields similar behavior to that shown in Task 7a. Figure 10 shows that the malicious `sleep()` function is not called, demonstrating that the `LD_PRELOAD` environment variable is not passed to the child.
+
+![Task 7c](./Screenshots/task7_c.png)
+
+From these
