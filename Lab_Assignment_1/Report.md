@@ -98,3 +98,18 @@ int main()
 As is shown in Figure 7, we get a root shell when the task6 program is run. This occurs because the system will search the directories described in `PATH` to find the `ls` command when run. Since our directory preceeds everything else, it will find a match to our version of `ls` and execute that, spawning a shell in a Set UID context.
 
 ![Task 6](./Screenshots/task6.png)
+
+## Task 7
+In task 7, we create a malicious library containing a `sleep` function and attempt to get our program to execute the malicious function. We do this by compiling our program (shown below) as a library and adding it to `LD_PRELOAD`, so when the dynamic linker searches for `sleep`, it finds our function first.
+```c
+// Malicious sleep program
+#include <stdio.h>
+void sleep(int s)
+{
+    printf("I am not sleeping!\n");
+}
+```
+
+We first do this in a non-privileged environment (the task7 program is owned by seed and is not Set UID). As can be seen in Figure 8, when task7 is executed we see the string `"I am not sleeping"` printed, as the malicious function was executed. However, when task7 is owned by root and is a Set UID program (escalated privileges), we do not see this string printed and the program simply slept for a second before exiting. This is because the `LD_PRELOAD` environment variable is not passed to the new shell in a Set UID context. This is a security feature to prevent exactly this.
+
+![Task 7a](./Screenshots/task7_a.png)
