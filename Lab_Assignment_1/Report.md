@@ -122,4 +122,34 @@ Making the program a non-root owned Set UID program and exporing `LD_PRELOAD` in
 
 ![Task 7c](./Screenshots/task7_c.png)
 
-From these
+From these experiments, we can make several conclusions:
+1. The `LD_PRELOAD` environmental variable is inherited by the child process in a non-set UID context.
+2. The `LD_PRELOAD` environmental variable is generally not inherited by the child process if the program is a Set UID program.
+3. Environment variables exported by the root account are always inherited by the child process. This is demonstrated in Figure 9, where the malicious `sleep()` function was called despite the program being Set UID.
+
+## Task 8
+### Part 1
+Yes, we are still able to compromise the integrity of the system. The simplest way to do this is to exploit the user generated parameter being passed to the `system()` function. For example, we may want to add some additional data to a file that we should have readonly permissions to. Figure 11 demonstrates this by appending text data to a file that we would otherwise not have permission to read or write. By passing the input 
+
+```sh
+task8 "testfile.txt; echo "Compromised" >> testfile.txt"
+```
+
+we are able to append the string `"Compromised"` to `testfile.txt`, despite not having permissions to read or write to it. Since task8 is a Set UID program, the `system()` command is executed with root privileges. Since root is able to read and write to `testfile.txt`, our command is successful and we can modify the file. In principle, we could create, modify, and delete any file we want through this program.
+
+![Task 8a](./Screenshots/task8_a.png)
+
+### Part 2
+Now that we are using `execve()` instead of `system()` to execute the command we are no longer able to exploit the same vulnerability in the program. When we execute the same command we now receive an error:
+```
+/bin/cat: 'testfile2.txt; echo Compromised >> testfile2.txt": No such file or directory
+```
+
+Unlike before, we cannot execute arbitrary commands using command injection. When `system()` is called it effectively executes the following:
+```sh
+/bin/sh -c "/bin/cat testfile.txt; echo 'Compromised' >> testfile.txt"
+```
+
+Thus, a shell is first spawned, and the input is then passed as the command for the shell to execute. When the command is parsed, two parts get executed: 1) "/bin/cat testfile.txt" and 2) echo 'Compromised' >> testfile.txt.
+
+However, `execve()` does not spawn a new shell to execute the command. It simply directly executes the program (i.e. /bin/cat) and passes it the input. Thus, /bin/cat looks for it's input which doesn't exist in this case and we get an error. Since there is no shell involved, the input is not parsed and our command fails.

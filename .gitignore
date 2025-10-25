@@ -5,4 +5,4 @@
 *.run.xml
 *.gz
 .DS_Store
-.DS_Store
+**/.DS_Store
