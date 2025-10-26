@@ -1,4 +1,6 @@
 # CIS 751 Lab Assignment 1
+### Written By: Chuck Zumbaugh
+### Collaborators: None
 
 ## Task 1
 We can view, set, and unset shell and environment variables as shown in Figure 1. In addition to the `printenv` command, we can also use `grep` as follows (pipe the result of `env` which prints all environment variables to `grep`):
