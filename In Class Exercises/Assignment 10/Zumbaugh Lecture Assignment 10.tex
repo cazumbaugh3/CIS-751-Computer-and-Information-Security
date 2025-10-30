@@ -1,0 +1,13 @@
+\documentclass[12pt]{article}
+\title{CIS 751 Lecture Assignment 10}
+\author{Chuck Zumbaugh}
+
+\begin{document}
+\maketitle
+
+\section{Encrypting files using OpenSSL}
+We can encrypt files using OpenSSL with AES, CBC mode using the following command:\\
+\textbf{openssl aes-256-cbc -a -salt -in secret.txt -out secret.enc}
+
+Which will prompt us for a password to use for encryption. If the original file contained the text "Secret", the secret.enc file may contain, for example, U2FsdGVkX184g5nMLj9uu5cD+nOFC0VbQuMyH5K39As= (using the password: Password).
+\end{document}
