@@ -1,0 +1,3 @@
+Sherman says the tool’s full release will be only the start. The consortium plans to continue updating the model and will expand the training data to include more molecules, such as water. “We are already starting to work on predicting binding affinity and building in other properties of proteins, like thermal stability,” he adds.
+
+doi: https://doi.org/10.1038/d41586-025-03546-y

@@ -1,0 +1,11 @@
+Full release coming
+The system was trained on more than 300,000 molecular structures and a synthetic database of more than 40 million structures. Developing it has cost US$17 million so far.
+
+
+Who will make AlphaFold3 open source? Scientists race to crack AI model
+Unlike AlphaFold3, which is available for restricted academic use, any researcher or pharmaceutical company can use OpenFold3. “It’s a big step forward in terms of the democratization of AI structural-biology tools,” says Sherman.
+
+The preview release shares OpenFold3’s code with researchers and allows them to start using and testing it. Sherman says that the consortium team is still working on technical improvements to the system and is planning a full release in the coming months. “We’re close — and we think, with this last little bit of effort, we’re going to get fully to parity,” he says. “This is a way for folks to get a flavour of OpenFold3 and start integrating it into their workflows and start building tools and start providing feedback.”
+
+“I’m excited to test [OpenFold3] and see how [it] compares to existing models,” says Stephanie Wankowicz, a computational structural biologist at Vanderbilt University in Nashville, Tennessee.
+

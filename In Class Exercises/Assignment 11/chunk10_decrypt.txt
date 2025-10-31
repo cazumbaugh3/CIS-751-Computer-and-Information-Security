@@ -1,0 +1,2 @@
+Beyond AlphaFold: how AI is decoding the grammar of the genome
+"It is great to see more open-source tools for modelling biomolecular interactions,” says Barzilay. “While AlphaFold3 marked a major scientific breakthrough, fully open-source replications, such as Boltz-1, have already delivered substantial benefits — both as ready-to-use resources and as powerful foundations for fine-tuning on specialized data sets. OpenFold3 will provide additional options for the research community.”

@@ -1,0 +1,3 @@
+Open-source models
+OpenFold3 is part of a wider push to develop open-source versions of AlphaFold3. These efforts began in May 2024, when London-based Google DeepMind launched AlphaFold3 without initially sharing its underlying code. Researchers criticized the private firm’s decision — and later, in November 2024, DeepMind made the AlphaFold3 code and model weights, or all the trainable 
+

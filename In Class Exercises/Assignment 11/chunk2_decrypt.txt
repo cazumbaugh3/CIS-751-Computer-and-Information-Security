@@ -1,0 +1,1 @@
+The system, called OpenFold3, was developed by the OpenFold Consortium1, a non-profit collaboration of academic and private research groups, headquartered in Davis, California. OpenFold3 uses proteins’ amino acid sequences to map their 3D structures and model how they interact with other molecules, such as drugs or DNA.

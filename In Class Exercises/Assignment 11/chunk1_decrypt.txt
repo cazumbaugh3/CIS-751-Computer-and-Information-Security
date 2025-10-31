@@ -1,0 +1,3 @@
+Scientists today released a ‘sneak preview’ of a new open-source artificial intelligence (AI) model that predicts 3D structures of proteins, and say it is close to matching the performance of Google DeepMind’s revolutionary protein-folding AI AlphaFold3.
+
+

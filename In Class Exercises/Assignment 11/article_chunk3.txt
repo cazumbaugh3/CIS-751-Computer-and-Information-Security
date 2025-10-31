@@ -1,0 +1,2 @@
+The tool still doesn’t have the same functionality as AlphaFold3, but “we wanted to get something out to the community as soon as possible”, says Woody Sherman, the consortium’s executive committee chair and chief innovation officer at Psivant Therapeutics in Boston, Massachusetts. The team hopes to use researcher feedback after the preview release to improve the model.
+

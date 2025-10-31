@@ -1,0 +1,4 @@
+Full release coming
+The system was trained on more than 300,000 molecular structures and a synthetic database of more than 40 million structures. Developing it has cost US$17 million so far.
+
+

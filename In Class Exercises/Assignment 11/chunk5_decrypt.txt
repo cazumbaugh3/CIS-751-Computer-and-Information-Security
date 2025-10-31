@@ -1,0 +1,3 @@
+Who will make AlphaFold3 open source? Scientists race to crack AI model
+Unlike AlphaFold3, which is available for restricted academic use, any researcher or pharmaceutical company can use OpenFold3. “It’s a big step forward in terms of the democratization of AI structural-biology tools,” says Sherman.
+

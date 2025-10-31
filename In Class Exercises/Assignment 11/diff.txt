@@ -1,0 +1,21 @@
+3d2
+< The system, called OpenFold3, was developed by the OpenFold Consortium1, a non-profit collaboration of academic and private research groups, headquartered in Davis, California. OpenFold3 uses proteins’ amino acid sequences to map their 3D structures and model how they interact with other molecules, such as drugs or DNA.
+5c4
+< The tool still doesn’t have the same functionality as AlphaFold3, but “we wanted to get something out to the community as soon as possible”, says Woody Sherman, the consortium’s executive committee chair and chief innovation officer at Psivant Therapeutics in Boston, Massachusetts. The team hopes to use researcher feedback after the preview release to improve the model.
+---
+> The system, called OpenFold3, was developed by the OpenFold Consortium1, a non-profit collaboration of academic and private research groups, headquartered in Davis, California. OpenFold3 uses proteins’ amino acid sequences to map their 3D structures and model how they interact with other molecules, such as drugs or DNA.The tool still doesn’t have the same functionality as AlphaFold3, but “we wanted to get something out to the community as soon as possible”, says Woody Sherman, the consortium’s executive committee chair and chief innovation officer at Psivant Therapeutics in Boston, Massachusetts. The team hopes to use researcher feedback after the preview release to improve the model.
+14c13,14
+< The preview release shares OpenFold3’s code with researchers and allows them to start using and testing it. Sherman says that the consortium team is still working on technical improvements to the system and is planning a full release in the coming months. “We’re close — and we think, with this last little bit of effort, we’re going to get fully to parity,” he says. “This is a way for folks to get a flavour of OpenFold3 and start integrating it into their workflows and start building tools and start providing feedback.”
+---
+> The preview release shares OpenFold3’s code with researchers and allows them to start using and testing it. Sherman says that the consortium team is still working on technical improvements to the system and is planning a full release in the coming months. “We’re close — and we think, with this last little bit of effort, 
+> we’re going to get fully to parity,” he says. “This is a way for folks to get a flavour of OpenFold3 and start integrating it into their workflows and start building tools and start providing feedback.”
+19c19
+< OpenFold3 is part of a wider push to develop open-source versions of AlphaFold3. These efforts began in May 2024, when London-based Google DeepMind launched AlphaFold3 without initially sharing its underlying code. Researchers criticized the private firm’s decision — and later, in November 2024, DeepMind made the AlphaFold3 code and model weights, or all the trainable parameters in an AI model, available to academics (they remain unavailable for commercial use).
+---
+> OpenFold3 is part of a wider push to develop open-source versions of AlphaFold3. These efforts began in May 2024, when London-based Google DeepMind launched AlphaFold3 without initially sharing its underlying code. Researchers criticized the private firm’s decision — and later, in November 2024, DeepMind made the AlphaFold3 code and model weights, or all the trainable 
+20a21,22
+> parameters in an AI model, available to academics (they remain unavailable for commercial use).
+> 
+25a28,29
+> Beyond AlphaFold: how AI is decoding the grammar of the genome
+> "It is great to see more open-source tools for modelling biomolecular interactions,” says Barzilay. “While AlphaFold3 marked a major scientific breakthrough, fully open-source replications, such as Boltz-1, have already delivered substantial benefits — both as ready-to-use resources and as powerful foundations for fine-tuning on specialized data sets. OpenFold3 will provide additional options for the research community.”

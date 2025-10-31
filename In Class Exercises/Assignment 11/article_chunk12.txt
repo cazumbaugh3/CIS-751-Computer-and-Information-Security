@@ -1,0 +1,4 @@
+Wankowicz says that comparing AlphaFold3, OpenFold3 and Boltz will help researchers to better tease out “the plethora of puzzle pieces that make the algorithms work” and “which puzzle piece is most important for different functions of the algorithm”.
+
+Several pharmaceutical and biotechnology firms have already committed to using OpenFold3 to design drugs for autoimmune disorders and cell therapies, as well as for developing molecules that protect plants and crops.
+

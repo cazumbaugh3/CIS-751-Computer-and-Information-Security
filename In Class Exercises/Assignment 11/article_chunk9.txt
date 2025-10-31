@@ -1,0 +1,5 @@
+parameters in an AI model, available to academics (they remain unavailable for commercial use).
+
+Late last year, AI researcher Regina Barzilay, at the Massachusetts Institute of Technology in Cambridge, and her colleagues released a similar open-access model called Boltz2. A second of version of the system, released earlier this year3, predicts protein structures and estimates how strongly they bind to small ligands.
+
+
