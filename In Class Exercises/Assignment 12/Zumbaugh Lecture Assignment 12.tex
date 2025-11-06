@@ -1,0 +1,30 @@
+\documentclass[12pt]{article}
+\title{CIS 751 Lecture Assignment 12}
+\author{Chuck Zumbaugh}
+
+\usepackage{listings}
+
+\begin{document}
+\maketitle
+
+\section{Signing the file}
+Assuming that we have already generated a public/private key pair (ex. using openssl genrsa), we can sign the file (article.txt) as follows.
+
+\begin{lstlisting}[language=bash]
+openssl dgst -sha256 -sign private_key.pem \
+ -out article.signature article.txt
+\end{lstlisting}
+
+This command will generate a hash of the file using the SHA-256 algorithm and sign it using the private\_key.pem file. The signature will then be output in the article.signature file.
+
+\section{Verifying the signature}
+We will use the public key and the original article to verify the signature. This can be done with the below command.
+
+\begin{lstlisting}[language = bash]
+openssl dgst -sha256 -verify public_key.pem \ 
+-signature article.signature article.txt
+\end{lstlisting}
+
+This command will use the SHA-256 algorithm, public\_key.pem file, the signature in the article.signature file, and the article.txt to verify the signature. Assuming the verification is successful, openssl will print "Verified OK" to the terminal.
+
+\end{document}
