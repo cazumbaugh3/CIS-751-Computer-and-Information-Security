@@ -111,6 +111,8 @@ As expected, we have root privileges when we log in as test.
 
 ![Task 2: Obtaining a root shell](./Screenshots/task2_b.png)
 
+\newpage
+
 ## Task 2.B
 In this task we will fix the race condition bug in our attack program. As mentioned at the end of the previous section, the /tmp/XYZ file needed to be removed once during the exploit process because it became root-owned. When this occurrs, our attack program running with seed privilege can no longer `unlink()` it and our attack will fail. This occurrs because the process of unlinking and creating a symbolic link is not atomic. The bug occurrs when a context switch happens between the `unlink()` and `symlink()` calls, a state where `/tmp/XYZ` is not linked to anything. The victim program attempts to access it and creates the file as root. When this happens, we lose privileges to make changes to `/tmp/XYZ` and the attack fails.
 
@@ -202,7 +204,7 @@ int main()
 
 As before, we make the compiled binary a root-owned Set-UID program and update `target_process.sh` to call this new program.
 
-Unlike before, we do not succeed in modifying the passwd file. The previous exploit took advantage of the TOCTOU culnerability between `access()` and `fopen()`, and relied upon the effective UID being root when `fopen()` was called. In the current program we have explicitly set the EUID to be the RUID before `fopen()` is called. Thus, `fopen()` checks the EUID, which is no longer root, and refuses to open the file when it is `/etc/passwd`. We do get writes to the `myfile` file when `/tmp/XYZ` points to it, however, as the seed user has write permissions to that file. 
+Unlike before, we do not succeed in modifying the passwd file. Instead we see endless "No permission" printed to the terminal. The previous exploit took advantage of the TOCTOU culnerability between `access()` and `fopen()`, and relied upon the effective UID being root when `fopen()` was called. In the current program we have explicitly set the EUID to be the RUID before `fopen()` is called. Thus, `fopen()` checks the EUID, which is no longer root, and refuses to open the file when it is `/etc/passwd`. We do get writes to the `myfile` file when `/tmp/XYZ` points to it, however, as the seed user has write permissions to that file. 
 
 ## Task 4
 Finally, we will repeat this attack with Ubuntu's built-in protection against race condition attacks turned on. This feature helps to prevent against TOCTOU race condition attacks, and restricts how symbolic links can be followed in sticky world-writable directories such as `/tmp`. When enabled, it permits symbolic links from being followed only if 1) The current process owns the symbolic link, 2) The owner of the directory owns the symbolic link, or 3) The symbolic link is created in a non-sticky, non-world-writable directory.
@@ -261,7 +263,8 @@ int main()
     scanf("%50s", buffer);
 
     if (!access(fn, W_OK)) {
-        fp = fopen(fn, "a+"); // TOCTOU vulnerability between access() and fopen()
+		// TOCTOU vulnerability between access() and fopen()
+        fp = fopen(fn, "a+");
         fwrite("\n", sizeof(char), 1, fp);
         fwrite(buffer, sizeof(char), strlen(buffer), fp);
         fclose(fp);
@@ -307,4 +310,4 @@ We can still successfully modify the password file because `/subdir` will not in
 
 ![Task 4: Protected symlinks is enabled](./Screenshots/task4_a.png)
 
-![Task 4: We can still modify /etc/passwd](./Screenshots/task4_b.png)
+![Task 4: We can still modify /etc/passwd under specific conditions](./Screenshots/task4_b.png)
