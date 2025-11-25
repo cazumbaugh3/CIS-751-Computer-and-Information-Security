@@ -21,22 +21,10 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{einstein}
-A.~Einstein, ``{Zur Elektrodynamik bewegter K{\"o}rper}. ({On the
-  Electrodynamics of Moving Bodies}),'' \emph{Annalen der Physik}, vol. 322,
-  no.~10, pp. 891--921, 1905.
-
-\bibitem{knuth-fa}
-D.~E. Knuth, \emph{Fundamental Algorithms}.\hskip 1em plus 0.5em minus
-  0.4em\relax Addison-Wesley, 1973, ch. 1.2.
-
-\bibitem{dirac}
-P.~A.~M. Dirac, \emph{The Principles of Quantum Mechanics}, ser. International
-  series of monographs on physics.\hskip 1em plus 0.5em minus 0.4em\relax
-  Clarendon Press, 1981.
-
-\bibitem{weiser1993some}
-M.~Weiser, ``Some computer science issues in ubiquitous computing,''
-  \emph{Communications of the ACM}, vol.~36, no.~7, pp. 75--84, 1993.
+\bibitem{llorente2021neverending}
+O.~Llorente-Vazquez, I.~Santos, I.~Pastor-Lopez, and P.~G. Bringas, ``The
+  neverending story: memory corruption 30 years later,'' in \emph{Computational
+  Intelligence in Security for Information Systems Conference}.\hskip 1em plus
+  0.5em minus 0.4em\relax Springer, 2021, pp. 136--145.
 
 \end{thebibliography}

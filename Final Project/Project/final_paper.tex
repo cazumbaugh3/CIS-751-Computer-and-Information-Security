@@ -12,10 +12,10 @@
         
 \begin{document}
 
-\title{Conference Paper Title}
+\title{Memory corruption vulnerabilities: Modern safeguards and their shortcomings}
 
 \author{\IEEEauthorblockN{Charles Zumbaugh}
-\IEEEauthorblockA{\textit{Department of Computer Science} \\
+\IEEEauthorblockA{\textit{Dept. of Computer Science} \\
 \textit{Kansas State University}\\
 Manhattan, Kansas \\
 cazumbaugh@ksu.edu}
@@ -24,46 +24,24 @@ cazumbaugh@ksu.edu}
 \maketitle
 
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
-or Math in Paper Title or Abstract.
+Memory corruption vulnerabilities are a class of software security vulnerabilities that occur when a system's memory is altered in an unintended way. In many cases, the result of memory corruption is a program crash or unintended behavior; however, many of these bugs can be exploited by malicious actors to gain unauthorized access to the system. Despite the advent of memory-safe languages and considerable effort identifying and fixing the sources of these vulnerabilities in memory-unsafe languages, this class of vulnerability remains one of the most common attack vectors in cyber-systems. Most modern computers include both hardware and operating system features to prevent an attacker from successfully exploiting these bugs, but nevertheless, attackers can bypass many of these protections. This paper discusses common memory corruption vulnerabilities, several modern safeguards to protect cyber-systems, and strategies that can be used to circumvent them.
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert
+memory corruption, security, vulnerability, systems, malware
 \end{IEEEkeywords}
 
 \section{Introduction}
-This document is a model and instructions for \LaTeX.
-Please observe the conference page limits. 
+As computing has become more embedded in everyday life, the security of these systems has become a critical concern as cyber attacks have increased in prevalence. Despite being recognized as a critical vulnerability over 30 years ago, memory corruption vulnerabilities occupy the top position in the CWE most dangerous software weakness list \cite{llorente2021neverending}.
+\section{Overview of memory corruption vulnerabilities}
 
-\section{Ease of Use}
+\subsection{Buffer Overflow Vulnerabilities}
 
-\subsection{Maintaining the Integrity of the Specifications}
 
-The IEEEtran class file is used to format your paper and style the text. All margins, 
-column widths, line spaces, and text fonts are prescribed; please do not 
-alter them. You may note peculiarities. For example, the head margin
-measures proportionately more than is customary. This measurement 
-and others are deliberate, using specifications that anticipate your paper 
-as one part of the entire proceedings, and not as an independent document. 
-Please do not revise any of the current designations.
+\subsection{Use After Free}
 
-\section{Prepare Your Paper Before Styling}
-Before you begin to format your paper, first write and save the content as a 
-separate text file. Complete all content and organizational editing before 
-formatting. Please note sections \ref{AA}--\ref{SCM} below for more information on 
-proofreading, spelling and grammar.
 
-Keep your text and graphic files separate until after the text has been 
-formatted and styled. Do not number text heads---{\LaTeX} will do that 
-for you.
-
-\subsection{Abbreviations and Acronyms}\label{AA}
-Define abbreviations and acronyms the first time they are used in the text, 
-even after they have been defined in the abstract. Abbreviations such as 
-IEEE, SI, MKS, CGS, ac, dc, and rms do not have to be defined. Do not use 
-abbreviations in the title or heads unless they are unavoidable.
+\subsection{Double Free}\label{AA}
 
 \subsection{Units}
 \begin{itemize}
@@ -219,14 +197,7 @@ G.) thanks $\ldots$''. Instead, try ``R. B. G. thanks$\ldots$''. Put sponsor
 acknowledgments in the unnumbered footnote on the first page.
 
 \section*{References}
-
-Please number citations consecutively within brackets \cite{einstein,knuth-fa,dirac}. The 
-sentence punctuation follows the bracket \cite{knuth-fa} . Refer simply to the reference 
-number, as in \cite{dirac}---do \cite{einstein,knuth-fa,dirac,weiser1993some} reference' except at 
-the beginning of a sentence: ``Reference was the first $\ldots$''
-
-Number footnotes separately in superscripts. Place the actual footnote at 
-the bottom of the column in which it was cited. Do not put footnotes in the 
+tnotes in the 
 abstract or reference list. Use letters for table footnotes.
 
 
