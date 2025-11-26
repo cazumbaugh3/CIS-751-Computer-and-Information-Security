@@ -5,7 +5,13 @@
 \usepackage{url}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
 \usepackage{graphicx}
+% LaTeX Symbols: https://tug.ctan.org/info/symbols/comprehensive/symbols-a4.pdf
+\usepackage{halloweenmath}
+\usepackage{caption}
+\captionsetup{justification=raggedright,singlelinecheck=false} % Align figure captions to the left
 \usepackage{textcomp}
 \usepackage{xcolor}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -33,16 +39,40 @@ memory corruption, security, vulnerability, systems, malware
 \end{IEEEkeywords}
 
 \section{Introduction}
-As computers have become more embedded in everyday life, the security of these systems has become a critical concern. Cyber attacks against government and non-government organizations has increased in recent years, particularly those targeting healthcare and large, multinational companies \cite{hammouchi2019digging}. As personal data is increasingly being collected and stored on servers, the scale of these breaches is also increasing. For example, a recent breach of Change Healthcare in 2025 exposed the personal data of more than 192 million individuals in the United States \cite{privacyrights2025}. 
+As computers have become more embedded in everyday life, the security of these systems has become a critical concern. Cyber attacks against government and non-government organizations has increased in recent years, particularly those targeting healthcare and large, multinational companies \cite{hammouchi2019digging}. As personal data is increasingly being collected and stored on servers, the scale of these breaches is also increasing. For example, a recent breach of Change Healthcare in 2025 exposed the personal data of more than 192 million individuals in the United States \cite{privacyrights2025}. The financial implications of security vulnerabilities are substantial, and IBM estimated the cost of a data breach in 2025 to be \$4.4 million \cite{ibm2025}.
 
-Despite being recognized as a critical vulnerability over 30 years ago and numerous approaches to mitigate them, memory corruption vulnerabilities are still found in all types of software \cite{llorente2021neverending}. Indeed, the 2024 list of the top 25 most dangerous software vulnerabilities included buffer overflows and use-after free in the second and eighth positions, respectively \cite{cwe2024}. When exploited, these vulnerabilities can allow for arbitrary code execution, privilege escalation, and information leakage. The financial implications of security vulnerabilities are substantial, and IBM estimated the cost of a data breach in 2025 to be \$4.4 million \cite{ibm2025}.
+Despite being recognized as a critical vulnerability over 30 years ago, and numerous approaches being developed to mitigate them, memory corruption vulnerabilities are still found in all types of software \cite{llorente2021neverending}. Indeed, the 2024 list of the top 25 most dangerous software vulnerabilities included buffer overflows and use-after free in the second and eighth positions, respectively \cite{cwe2024}. When exploited, these vulnerabilities can allow for arbitrary code execution, privilege escalation, and information leakage. 
 
 In practice, a program is considered memory safe as long as a set of memory errors can never occur \cite{llorente2021neverending}, though rigorous, formal definitions have been presented in recent years \cite{azevedo2018meaning}. Memory corruption is due to the lack of memory safety in low-level languages such as C and C++, and while memory and type safe languages such as Java and Rust provide memory safety, the use of memory-unsafe languages is ubiquitous in systems programming. Additionally, mitigation techniques are not always used, even among modern operating systems. These techniques may require non-existent hardware support on older systems, have large performance costs, or require recompilation of critical components \cite{van2012memory}. 
 
 \section{Overview of memory corruption vulnerabilities}
+Memory corruption occurs when a system's memory is altered in an unintended way. These vulnerabilities are generally the result of subtle programming mistakes in low-level languages, where programmers must manually manage the memory throughout execution. Memory corruption will cause a crash or undefined behavior in many cases, but attackers can exploit memory errors to gain unauthorized access to the system by carefully modifying key regions of memory. While memory corruption vulnerabilities share some common characteristics as a class, their details differ and warrant discussion. 
 
 \subsection{Buffer Overflow Vulnerabilities}
+Buffer overflows are one of the most common and dangerous memory corruption vulnerabilities. A buffer overflow can occur when a program writes data to a memory buffer without checking the bounds. If the data is larger than the buffer, the program will continue to write into adjacent regions of memory. These adjacent regions commonly contain important information, such as return addresses, that can be modified by an attacker to allow for arbitrary code execution. 
 
+\begin{figure*}[ht]
+\begin{tikzpicture} [
+	buffer/.style={rectangle, draw=black, thick, minimum height=0.75cm, minimum width=6cm, outer sep=0pt, inner sep=0pt},
+	word/.style={rectangle, draw=black, thick, minimum height=0.75cm, minimum width=2cm, outer sep=0pt, inner sep=0pt}
+]
+% Memory cells
+\node[buffer] (buffer1) {Buffer};
+\node[word] (ebp1) [right=0cm of buffer1] {Saved EBP};
+\node[word] (eip1) [right=0cm of ebp1] {Saved EIP};
+\node[buffer] (rest1) [right=0cm of eip1] {...};
+
+\node[buffer, fill=red!20] (buffer2) [below=1cm of buffer1] {Malicious code};
+\node[word, fill=red!20] (ebp2) [right=0cm of buffer2] {...};
+\node[word, fill=red!20] (eip2) [right=0cm of ebp2] {\color{red}$\bigskull$};
+\node[buffer] (rest2) [right=0cm of eip2] {...};
+
+% Arrows
+\draw[->] (buffer1.north) .. controls +(up:7mm) and +(up:7mm) .. (eip1.north);
+\draw[->] (eip1.west) -- (eip2.west);
+\end{tikzpicture}
+\caption{Example of a typical buffer overflow attack}
+\end{figure*}
 
 \subsection{Use After Free}
 
