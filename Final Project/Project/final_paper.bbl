@@ -21,10 +21,47 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{hammouchi2019digging}
+H.~Hammouchi, O.~Cherqi, G.~Mezzour, M.~Ghogho, and M.~El~Koutbi, ``Digging
+  deeper into data breaches: An exploratory data analysis of hacking breaches
+  over time,'' \emph{Procedia Computer Science}, vol. 151, pp. 1004--1009,
+  2019.
+
+\bibitem{privacyrights2025}
+\BIBentryALTinterwordspacing
+P.~R. Clearinghouse. (2025) Data breaches. [Online]. Available:
+  \url{https://privacyrights.org/data-breaches}
+\BIBentrySTDinterwordspacing
+
 \bibitem{llorente2021neverending}
 O.~Llorente-Vazquez, I.~Santos, I.~Pastor-Lopez, and P.~G. Bringas, ``The
   neverending story: memory corruption 30 years later,'' in \emph{Computational
   Intelligence in Security for Information Systems Conference}.\hskip 1em plus
   0.5em minus 0.4em\relax Springer, 2021, pp. 136--145.
+
+\bibitem{cwe2024}
+\BIBentryALTinterwordspacing
+CWE. (2024) 2024 cwe top 25 most dangerous software weaknesses. [Online].
+  Available:
+  \url{\url{https://cwe.mitre.org/top25/archive/2024/2024_cwe_top25.html}}
+\BIBentrySTDinterwordspacing
+
+\bibitem{ibm2025}
+\BIBentryALTinterwordspacing
+IBM. (2025) Cost of a data breach report 2025. [Online]. Available:
+  \url{https://www.ibm.com/reports/data-breach}
+\BIBentrySTDinterwordspacing
+
+\bibitem{azevedo2018meaning}
+A.~Azevedo~de Amorim, C.~Hri{\c{t}}cu, and B.~C. Pierce, ``The meaning of
+  memory safety,'' in \emph{International Conference on Principles of Security
+  and Trust}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2018, pp.
+  79--105.
+
+\bibitem{van2012memory}
+V.~Van~der Veen, N.~Dutt-Sharma, L.~Cavallaro, and H.~Bos, ``Memory errors: The
+  past, the present, and the future,'' in \emph{International Workshop on
+  Recent Advances in Intrusion Detection}.\hskip 1em plus 0.5em minus
+  0.4em\relax Springer, 2012, pp. 86--106.
 
 \end{thebibliography}

@@ -2,6 +2,7 @@
 % \IEEEoverridecommandlockouts
 % The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
 \usepackage{cite}
+\usepackage{url}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{algorithmic}
 \usepackage{graphicx}
@@ -32,7 +33,12 @@ memory corruption, security, vulnerability, systems, malware
 \end{IEEEkeywords}
 
 \section{Introduction}
-As computing has become more embedded in everyday life, the security of these systems has become a critical concern as cyber attacks have increased in prevalence. Despite being recognized as a critical vulnerability over 30 years ago, memory corruption vulnerabilities occupy the top position in the CWE most dangerous software weakness list \cite{llorente2021neverending}.
+As computers have become more embedded in everyday life, the security of these systems has become a critical concern. Cyber attacks against government and non-government organizations has increased in recent years, particularly those targeting healthcare and large, multinational companies \cite{hammouchi2019digging}. As personal data is increasingly being collected and stored on servers, the scale of these breaches is also increasing. For example, a recent breach of Change Healthcare in 2025 exposed the personal data of more than 192 million individuals in the United States \cite{privacyrights2025}. 
+
+Despite being recognized as a critical vulnerability over 30 years ago and numerous approaches to mitigate them, memory corruption vulnerabilities are still found in all types of software \cite{llorente2021neverending}. Indeed, the 2024 list of the top 25 most dangerous software vulnerabilities included buffer overflows and use-after free in the second and eighth positions, respectively \cite{cwe2024}. When exploited, these vulnerabilities can allow for arbitrary code execution, privilege escalation, and information leakage. The financial implications of security vulnerabilities are substantial, and IBM estimated the cost of a data breach in 2025 to be \$4.4 million \cite{ibm2025}.
+
+In practice, a program is considered memory safe as long as a set of memory errors can never occur \cite{llorente2021neverending}, though rigorous, formal definitions have been presented in recent years \cite{azevedo2018meaning}. Memory corruption is due to the lack of memory safety in low-level languages such as C and C++, and while memory and type safe languages such as Java and Rust provide memory safety, the use of memory-unsafe languages is ubiquitous in systems programming. Additionally, mitigation techniques are not always used, even among modern operating systems. These techniques may require non-existent hardware support on older systems, have large performance costs, or require recompilation of critical components \cite{van2012memory}. 
+
 \section{Overview of memory corruption vulnerabilities}
 
 \subsection{Buffer Overflow Vulnerabilities}
