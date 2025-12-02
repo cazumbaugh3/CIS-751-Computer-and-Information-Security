@@ -49,7 +49,9 @@ In practice, a program is considered memory safe as long as a set of memory erro
 Memory corruption occurs when a system's memory is altered in an unintended way. These vulnerabilities are generally the result of subtle programming mistakes in low-level languages, where programmers must manually manage the memory throughout execution. Memory corruption will cause a crash or undefined behavior in many cases, but attackers can exploit memory errors to gain unauthorized access to the system by carefully modifying key regions of memory. While memory corruption vulnerabilities share some common characteristics as a class, their details differ and warrant discussion. 
 
 \subsection{Buffer Overflow Vulnerabilities}
-Buffer overflows are one of the most common and dangerous memory corruption vulnerabilities. A buffer overflow can occur when a program writes data to a memory buffer without checking the bounds. If the data is larger than the buffer, the program will continue to write into adjacent regions of memory. These adjacent regions commonly contain important information, such as return addresses, that can be modified by an attacker to allow for arbitrary code execution. 
+Buffer overflows are one of the most common and dangerous memory corruption vulnerabilities. A buffer overflow can occur when a program writes data to a memory buffer without checking the bounds. If the data is larger than the buffer, the program will continue to write into adjacent regions of memory. These adjacent regions commonly contain important information, such as return addresses, that can be modified by an attacker to allow for arbitrary code execution. Figure~\ref{fig:buffer_overflow} shows the general structure of a buffer overflow vulnerability and attack. While the precise details of the exploit depend on the the programs implementation details, the attack relies on the attacker gaining control of key data, such as the return address. In the simplest implementation of a buffer overflow exploit, the attacker overflows a buffer on the stack to overwrite the return address \cite{aleph1996stacksmashing}. Thus, when the function returns execution will jump to the address given by the attacker providing arbitrary execution. 
+
+Buffer overflow vulnerabilities are commonly due to the inherent characteristics of low-level programming languages such as C. Many data manipulation functions, such as \textit{memcpy} do not check bounds. Additionally, data structures such as arrays are not first-class objects and are instead represented as pointers, making compile-time checks for overflow difficult \cite{lhee2003buffer}. Indeed, static analysis techniques were largely unsuccessful in detecting buffer overflow vulnerabilities in large software projects such as the Linux kernel \cite{pereira2021characterizing}. 
 
 \begin{figure*}[ht]
 \begin{tikzpicture} [
@@ -57,25 +59,24 @@ Buffer overflows are one of the most common and dangerous memory corruption vuln
 	word/.style={rectangle, draw=black, thick, minimum height=0.75cm, minimum width=2cm, outer sep=0pt, inner sep=0pt}
 ]
 % Memory cells
-\node[buffer] (buffer1) {Buffer};
+\node[buffer] (buffer1) at (-1, 0) {Buffer};
 \node[word] (ebp1) [right=0cm of buffer1] {Saved EBP};
 \node[word] (eip1) [right=0cm of ebp1] {Saved EIP};
 \node[buffer] (rest1) [right=0cm of eip1] {...};
 
-\node[buffer, fill=red!20] (buffer2) [below=1cm of buffer1] {Malicious code};
-\node[word, fill=red!20] (ebp2) [right=0cm of buffer2] {...};
-\node[word, fill=red!20] (eip2) [right=0cm of ebp2] {\color{red}$\bigskull$};
+\node[buffer, fill=blue!20, minimum width=8cm] (buffer2) at (0, -2) {Overflow};
+\node[word, fill=blue!20] (eip2) [right=0cm of buffer2] {\color{red}$\bigskull$ EIP \color{red}$\bigskull$};
 \node[buffer] (rest2) [right=0cm of eip2] {...};
 
 % Arrows
-\draw[->] (buffer1.north) .. controls +(up:7mm) and +(up:7mm) .. (eip1.north);
 \draw[->] (eip1.west) -- (eip2.west);
 \end{tikzpicture}
-\caption{Example of a typical buffer overflow attack}
+\caption{Example of a basic stack buffer overflow attack. The attacker overflows the buffer, illustrated in blue, to overwrite the return address. When successful, this allows for arbitrary code execution.}
+\label{fig:buffer_overflow}
 \end{figure*}
 
 \subsection{Use After Free}
-
+In recent years, use after free exploits have been growing, especially against web browsers \cite{caballero2012undangle}. Use after free vulnerabilities result from dangling pointers. A dangling pointer is a pointer that points to an invalid region of memory, commonly created when the object referenced by the pointer is deallocated without updating the pointer. A use after free occurs when the program attempts to access this freed memory, which in many cases will result in a crash or undefined behavior. Like buffer overflows, dangling pointers can be exploited by attackers to gain control of a system \cite{afek2007dangling}. However, these vulnerabilities can be more difficult to detect as they involve multiple events that may be separated across time and the codebase. In fact, detecting dangling pointer errors statically is undecidable and runtime detection strategies are computationally expensive \cite{dhurjati2006efficiently}. 
 
 \subsection{Double Free}\label{AA}
 
