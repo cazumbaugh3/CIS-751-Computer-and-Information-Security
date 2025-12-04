@@ -6,20 +6,22 @@
 \maketitle
 
 \noindent
-\textbf{Proposed Title:} Memory corruption vulnerabilities: Modern safeguards and their shortcomings
+\textbf{Proposed Title:} Securing the supply chain
 
 \bigbreak
-\noindent\textbf{Overview:} Memory corruption vulnerabilities are common and represent a significant portion security bugs. They are relatively easy to introduce, particularly in memory unsafe languages such as C/C++, and allow for arbitrary code execution when exploited. Significant work has been done to improve the security of modern systems through hardware and OS-level protections. Nevertheless, these bugs remain exploitable and many zero-days are the result of memory corruption. The objective of this review will be to explore the following strategies to protect against memory corruption vulnerabilities, including how they function, the problem they solve, and current methods attackers can use to circumvent them.  
+\noindent\textbf{Overview:} Modern software development depends heavily on layers of abstractions such as libraries, frameworks, cloud infrastructure, and source code repositories built and maintained by others. This supply chain is an important attack vector, and several recent incidents, such as the Log4j vulnerability, highlight the scope of the fallout when this vector is exploited. This review is intended to discuss the primary attack vectors in the supply chain, security measures and practices to reduce risk, and a discussion on recent incidents.
 
 \begin{enumerate}
-\item Overview of memory corruption vulnerabilities
-\item Modern safeguards and strategies to circumvent them
+\item Overview of the software supply chain
+\item Supply chain attack vectors
 \begin{enumerate}
-\item Address space layout randomization (ASLR)
-\item Executable-space protection
-\item Pointer authentication codes
-\item Memory tagging extension
+\item Source code repositories
+\item Software dependencies
+\item Cloud infrastructure
+\item Artifact registries
+\item Build systems
 \end{enumerate}
+\item Defending against supply chain attacks - Discussion on modern security frameworks and standards
+\item Recent supply chain security incidents such as Log4j and the SolarWinds attack
 \end{enumerate}
-
 \end{document}
