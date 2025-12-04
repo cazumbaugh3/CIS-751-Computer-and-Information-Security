@@ -39,61 +39,40 @@ IBM. (2025) Cost of a data breach report 2025. [Online]. Available:
   \url{https://www.ibm.com/reports/data-breach}
 \BIBentrySTDinterwordspacing
 
-\bibitem{llorente2021neverending}
-O.~Llorente-Vazquez, I.~Santos, I.~Pastor-Lopez, and P.~G. Bringas, ``The
-  neverending story: memory corruption 30 years later,'' in \emph{Computational
-  Intelligence in Security for Information Systems Conference}.\hskip 1em plus
-  0.5em minus 0.4em\relax Springer, 2021, pp. 136--145.
+\bibitem{blackduck2025}
+B.~Duck, ``2025 open source security and risk analysis report,'' Black Duck,
+  Tech. Rep., 2025.
 
-\bibitem{cwe2024}
+\bibitem{sonatype2025}
 \BIBentryALTinterwordspacing
-CWE. (2024) 2024 cwe top 25 most dangerous software weaknesses. [Online].
-  Available:
-  \url{\url{https://cwe.mitre.org/top25/archive/2024/2024_cwe_top25.html}}
+S.~S.~R. Team. (2025) Open source malware index q3 2025: High-severity attacks
+  surge. [Online]. Available:
+  \url{https://www.sonatype.com/blog/open-source-malware-index-q3-2025}
 \BIBentrySTDinterwordspacing
 
-\bibitem{azevedo2018meaning}
-A.~Azevedo~de Amorim, C.~Hri{\c{t}}cu, and B.~C. Pierce, ``The meaning of
-  memory safety,'' in \emph{International Conference on Principles of Security
-  and Trust}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2018, pp.
-  79--105.
+\bibitem{williams2025research}
+L.~Williams, G.~Benedetti, S.~Hamer, R.~Paramitha, I.~Rahman, M.~Tamanna,
+  G.~Tystahl, N.~Zahan, P.~Morrison, Y.~Acar \emph{et~al.}, ``Research
+  directions in software supply chain security,'' \emph{ACM Transactions on
+  Software Engineering and Methodology}, vol.~34, no.~5, pp. 1--38, 2025.
 
-\bibitem{van2012memory}
-V.~Van~der Veen, N.~Dutt-Sharma, L.~Cavallaro, and H.~Bos, ``Memory errors: The
-  past, the present, and the future,'' in \emph{International Workshop on
-  Recent Advances in Intrusion Detection}.\hskip 1em plus 0.5em minus
-  0.4em\relax Springer, 2012, pp. 86--106.
+\bibitem{10154229}
+B.~Hammi and S.~Zeadally, ``Software supply-chain security: Issues and
+  countermeasures,'' \emph{Computer}, vol.~56, no.~7, pp. 54--66, 2023.
 
-\bibitem{aleph1996stacksmashing}
-\BIBentryALTinterwordspacing
-A.~One. (1996) Smashing the stack for fun and profit. [Online]. Available:
-  \url{https://phrack.org/issues/49/14}
-\BIBentrySTDinterwordspacing
+\bibitem{9359290}
+J.~Stringer, A.~Tahir, K.~Blincoe, and J.~Dietrich, ``Technical lag of
+  dependencies in major package managers,'' in \emph{2020 27th Asia-Pacific
+  Software Engineering Conference (APSEC)}, 2020, pp. 228--237.
 
-\bibitem{lhee2003buffer}
-K.-S. Lhee and S.~J. Chapin, ``Buffer overflow and format string overflow
-  vulnerabilities,'' \emph{Software: practice and experience}, vol.~33, no.~5,
-  pp. 423--460, 2003.
+\bibitem{zerouali2018empirical}
+A.~Zerouali, E.~Constantinou, T.~Mens, G.~Robles, and J.~Gonz{\'a}lez-Barahona,
+  ``An empirical analysis of technical lag in npm package dependencies,'' in
+  \emph{International conference on software reuse}.\hskip 1em plus 0.5em minus
+  0.4em\relax Springer, 2018, pp. 95--110.
 
-\bibitem{pereira2021characterizing}
-J.~D. Pereira, N.~Ivaki, and M.~Vieira, ``Characterizing buffer overflow
-  vulnerabilities in large c/c++ projects,'' \emph{IEEE Access}, vol.~9, pp.
-  142\,879--142\,892, 2021.
-
-\bibitem{caballero2012undangle}
-J.~Caballero, G.~Grieco, M.~Marron, and A.~Nappa, ``Undangle: early detection
-  of dangling pointers in use-after-free and double-free vulnerabilities,'' in
-  \emph{Proceedings of the 2012 International Symposium on Software Testing and
-  Analysis}, 2012, pp. 133--143.
-
-\bibitem{afek2007dangling}
-J.~Afek and A.~Sharabani, ``Dangling pointer: Smashing the pointer for fun and
-  profit,'' 2007.
-
-\bibitem{dhurjati2006efficiently}
-D.~Dhurjati and V.~Adve, ``Efficiently detecting all dangling pointer uses in
-  production servers,'' in \emph{International Conference on Dependable Systems
-  and Networks (DSN'06)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2006,
-  pp. 269--280.
+\bibitem{berhe2023maintenance}
+S.~Berhe, M.~Maynard, and F.~Khomh, ``Maintenance cost of software ecosystem
+  updates,'' \emph{Procedia Computer Science}, vol. 220, pp. 608--615, 2023.
 
 \end{thebibliography}
