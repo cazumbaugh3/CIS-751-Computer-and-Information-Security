@@ -75,4 +75,26 @@ A.~Zerouali, E.~Constantinou, T.~Mens, G.~Robles, and J.~Gonz{\'a}lez-Barahona,
 S.~Berhe, M.~Maynard, and F.~Khomh, ``Maintenance cost of software ecosystem
   updates,'' \emph{Procedia Computer Science}, vol. 220, pp. 608--615, 2023.
 
+\bibitem{spaulding2017understanding}
+J.~Spaulding, D.~Nyang, and A.~Mohaisen, ``Understanding the effectiveness of
+  typosquatting techniques,'' in \emph{Proceedings of the fifth ACM/IEEE
+  Workshop on Hot Topics in Web Systems and Technologies}, 2017, pp. 1--8.
+
+\bibitem{taylor2020defending}
+M.~Taylor, R.~Vaidya, D.~Davidson, L.~De~Carli, and V.~Rastogi, ``Defending
+  against package typosquatting,'' in \emph{International conference on network
+  and system security}.\hskip 1em plus 0.5em minus 0.4em\relax Springer, 2020,
+  pp. 112--131.
+
+\bibitem{ahmad2019typowriter}
+I.~Ahmad, M.~A. Parvez, and A.~Iqbal, ``Typowriter: a tool to prevent
+  typosquatting,'' in \emph{2019 IEEE 43rd Annual Computer Software and
+  Applications Conference (COMPSAC)}, vol.~1.\hskip 1em plus 0.5em minus
+  0.4em\relax IEEE, 2019, pp. 423--432.
+
+\bibitem{blefari2024typoalert}
+F.~Blefari, A.~Furfaro, G.~Ianni, A.~Viscomi \emph{et~al.}, ``Typoalert: a
+  browser extension against typosquatting,'' in \emph{Proc. of SEBD: 32nd
+  Symposium on Advanced Database Systems}, 2024.
+
 \end{thebibliography}
