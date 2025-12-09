@@ -97,4 +97,43 @@ F.~Blefari, A.~Furfaro, G.~Ianni, A.~Viscomi \emph{et~al.}, ``Typoalert: a
   browser extension against typosquatting,'' in \emph{Proc. of SEBD: 32nd
   Symposium on Advanced Database Systems}, 2024.
 
+\bibitem{gu2023investigating}
+Y.~Gu, L.~Ying, Y.~Pu, X.~Hu, H.~Chai, R.~Wang, X.~Gao, and H.~Duan,
+  ``Investigating package related security threats in software registries,'' in
+  \emph{2023 IEEE Symposium on Security and Privacy (SP)}.\hskip 1em plus 0.5em
+  minus 0.4em\relax IEEE, 2023, pp. 1578--1595.
+
+\bibitem{delicheh2024mitigating}
+H.~O. Delicheh and T.~Mens, ``Mitigating security issues in github actions,''
+  in \emph{Proceedings of the 2024 ACM/IEEE 4th International Workshop on
+  Engineering and Cybersecurity of Critical Systems (EnCyCriS) and 2024
+  IEEE/ACM Second International Workshop on Software Vulnerability}, 2024, pp.
+  6--11.
+
+\bibitem{onsori2024quantifying}
+H.~Onsori~Delicheh, A.~Decan, and T.~Mens, ``Quantifying security issues in
+  reusable javascript actions in github workflows,'' in \emph{Proceedings of
+  the 21st International Conference on Mining Software Repositories}, 2024, pp.
+  692--703.
+
+\bibitem{djenna2014security}
+A.~Djenna and M.~Batouche, ``Security problems in cloud infrastructure,'' in
+  \emph{The 2014 International Symposium on Networks, Computers and
+  Communications}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2014, pp. 1--6.
+
+\bibitem{saini2014security}
+H.~Saini and A.~Saini, ``Security mechanisms at different levels in cloud
+  infrastructure,'' \emph{International Journal of Computer Applications}, vol.
+  108, no.~2, pp. 1--6, 2014.
+
+\bibitem{alghofaili2021secure}
+Y.~Alghofaili, A.~Albattah, N.~Alrajeh, M.~A. Rassam, and B.~A.~S. Al-Rimy,
+  ``Secure cloud infrastructure: A survey on issues, current solutions, and
+  open challenges,'' \emph{Applied Sciences}, vol.~11, no.~19, p. 9005, 2021.
+
+\bibitem{salih2024cloud}
+B.~M. Salih and O.~K.~J. Mohammad, ``Cloud data leakage, security, privacy
+  issues and challenges,'' \emph{Procedia Computer Science}, vol. 242, pp.
+  592--601, 2024.
+
 \end{thebibliography}

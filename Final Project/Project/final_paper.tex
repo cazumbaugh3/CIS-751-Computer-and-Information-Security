@@ -103,6 +103,50 @@ Aside from vulnerabilities in the workflows associated with these repositories,
 security vulnerabilities can arise from contributions from bad actors, 
 especially in the context of open-source.
 
+\subsection{Cloud Infrastructure}
+Cloud computing has boomed in recent years, with companies such as Amazon, Google, 
+Microsoft, and others providing cloud infrastructure to users and companies at an incredible scale. 
+This service offers scalability, flexibility, and initial cost savings compared to traditional infrastructure, 
+but brings new security challenges as an external party must be entrusted with the data. Given their 
+role and data they have access to, it is no surprise that security is one of the primary concerns. Additionally, 
+cloud infrastructure brings with it new security issues related to virtualization, data geolocation, storage, 
+confidentiality, and session hijacking \cite{djenna2014security}. At a high level, the security of cloud 
+infrastructure can be broken into four levels: the compute level (ex. physical server and hypervisor security), 
+the network level (ex. virtual firewall and securing data in transit), the application level (ex. providing protection 
+to applications utilizing the resources), and data \cite{saini2014security}. 
+
+At the data level, cloud infrastructure faces issues such as data breaches, loss, segregation, virtualization, 
+confidentiality, integrity, and availability \cite{alghofaili2021secure}. The shared nature of cloud infrastructure 
+makes it a target for attackers, as success can mean stealing a significant amount of data. While there are 
+many reasons for data loss and leakage, the primary reasons are due to misconfigurations, unauthorized access, insecure 
+interfaces, and hijacking accounts \cite{salih2024cloud}. Attacks can be carried out by internal or external threat actors, 
+and encryption and watermarking are the two major defenses to these security issues \cite{alghofaili2021secure}. 
+
+Outside of data loss/leakage, cloud infrastructure providers face issues related to availability and integrity. Customers 
+expect near constant uptime without data corruption. The distributed nature of cloud computing complicates these, 
+and attackers can target availability by launching a distributed denial of service (DDoS) attack, and can attack integrity 
+by corrupting any of the multiple locations the data is stored.
+
+At the compute level, cloud infrastructure faces threats related to physical security and virtualization. To provide cloud 
+infrastructure at a large scale, providers build or rent large data centers that provide the physical servers, storage, and 
+networking. As these servers contain sensitive data, unauthorized access by employees or other individuals presents a 
+major security threat. While physically accessing the server is infeasible for the vast majority of cybercriminals, they may 
+gain access to the servers through vulnerabilities related to virtualization. Cloud computing heavily relies on virtualization, 
+where many virtual machines share the same physical hardware. Vulnerabilities in the hypervisor can allow attackers to 
+gain access to the physical hardware and the applications hosted by the hypervisor \cite{alghofaili2021secure}.
+
+Cloud infrastructure is vulnerable to attacks on its network, much like other internet-based services and applications. 
+Attackers can target cloud infrastructure using DDoS and domain name server (DNS) cache poisoning attacks, and packet sniffing. 
+Additionally, IP addresses are commonly reassigned in cloud environments, which can increase the risk of attack if the process 
+of reusing an IP address happens faster than its old assignment is removed from the DNS cache \cite{alghofaili2021secure}. 
+ 
+Finally, cloud infrastructure faces threats at the application level such as insecure APIs and  end user attacks 
+\cite{alghofaili2021secure}. Cloud computing relies on numerous APIs that connect hardware and various software components such as databases, 
+authentication and authorization systems, compute engines, and others. Vulnerabilities in these APIs can provide attackers a mechanism to 
+carry out attacks. Additionally, attackers may target the end users of the services in phishing schemes to attempt to gain access to their accounts. 
+
+\subsection{Build Systems}
+
 \subsection{Units}
 \begin{itemize}
 \item Use either SI (MKS) or CGS as primary units. (SI units are encouraged.) English units may be used as secondary units (in parentheses). An exception would be the use of English units as identifiers in trade, such as ``3.5-inch disk drive''.
