@@ -71,6 +71,12 @@ A.~Zerouali, E.~Constantinou, T.~Mens, G.~Robles, and J.~Gonz{\'a}lez-Barahona,
   \emph{International conference on software reuse}.\hskip 1em plus 0.5em minus
   0.4em\relax Springer, 2018, pp. 95--110.
 
+\bibitem{pashchenko2020qualitative}
+I.~Pashchenko, D.-L. Vu, and F.~Massacci, ``A qualitative study of dependency
+  management and its security implications,'' in \emph{Proceedings of the 2020
+  ACM SIGSAC conference on computer and communications security}, 2020, pp.
+  1513--1531.
+
 \bibitem{berhe2023maintenance}
 S.~Berhe, M.~Maynard, and F.~Khomh, ``Maintenance cost of software ecosystem
   updates,'' \emph{Procedia Computer Science}, vol. 220, pp. 608--615, 2023.
@@ -135,5 +141,16 @@ Y.~Alghofaili, A.~Albattah, N.~Alrajeh, M.~A. Rassam, and B.~A.~S. Al-Rimy,
 B.~M. Salih and O.~K.~J. Mohammad, ``Cloud data leakage, security, privacy
   issues and challenges,'' \emph{Procedia Computer Science}, vol. 242, pp.
   592--601, 2024.
+
+\bibitem{anasuri2024software}
+S.~Anasuri and G.~P. Rusum, ``Software supply chain security: Policy, tooling,
+  and real-world incidents,'' \emph{International Journal of Emerging Trends in
+  Computer Science and Information Technology}, vol.~5, no.~3, pp. 79--89,
+  2024.
+
+\bibitem{zimmermann2019small}
+M.~Zimmermann, C.-A. Staicu, C.~Tenny, and M.~Pradel, ``Small world with high
+  risks: A study of security threats in the npm ecosystem,'' in \emph{28th
+  USENIX Security symposium (USENIX security 19)}, 2019, pp. 995--1010.
 
 \end{thebibliography}
