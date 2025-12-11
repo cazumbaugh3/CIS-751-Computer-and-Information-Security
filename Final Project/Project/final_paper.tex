@@ -145,13 +145,46 @@ Finally, cloud infrastructure faces threats at the application level such as ins
 authentication and authorization systems, compute engines, and others. Vulnerabilities in these APIs can provide attackers a mechanism to 
 carry out attacks. Additionally, attackers may target the end users of the services in phishing schemes to attempt to gain access to their accounts. 
 
-\subsection{Build Systems}
-
 \section{Defending against attacks}
 It is clear that there are many attack surfaces in the software supply chain, and the number of disparate components and organizations involved can make security difficult. Modern software applications are complex and commonly involve hundreds or thousands of dependencies, from software libraries to cloud infrastructure. An attacker requires just a single vulnerable component to mount an attack, and the result can affect businesses, end users, and governments. Software supply chain security has evolved in recent decades, evolving from a focus on perimeter defense, to including dependency management, software bill of materials (SBOM), zero-trust and secure build pipelines, and global standards \cite{anasuri2024software}. Additionally, new tooling has been developed to assist organizations in implementing these methods.
 
 \subsection{Dependency Management}
-As software has become more complex, managing the hundreds or thousands of dependencies has become increasingly important. At a basic level, most package managers such as npm or Maven use versioning systems that provide users with the ability to specify automatic updates. For example, users can use the "$\wedge$" operator to allow for minor or patch updates, or the "$\sim$" to allow for only patch updates. However, management of dependencies becomes much more complex when transitive dependencies are considered. On average, a user implicitly includes around 80 additional packages through transitive dependencies for each package installed by npm, and up to 40\% of packages rely on code known to be vulnerable  \cite{zimmermann2019small}. Clearly, this is a security threat to modern applications. Zimmermann et al. (2019) present some potential mitigations to this including raising developer awareness, vulnerable package warnings, code vetting, and training and vetting maintainers. 
+As software has become more complex, managing the hundreds or thousands of dependencies has become increasingly important. At a basic level, most package managers such as npm or Maven use versioning systems that provide users with the ability to specify automatic updates. For example, users can use the "$\wedge$" operator to allow for minor or patch updates, or the "$\sim$" to allow for only patch updates. However, management of dependencies becomes much more complex when transitive dependencies are considered. On average, a user implicitly includes around 80 additional packages through transitive dependencies for each package installed by npm, and up to 40\% of packages rely on code known to be vulnerable  \cite{zimmermann2019small}. Clearly, this is a security threat to modern applications. Zimmermann et al. (2019) present some potential mitigations to this including raising developer awareness, vulnerable package warnings, code vetting, and training and vetting maintainers. Most modern package managers provide warnings for vulnerable packages, but the vulnerability must be known and they generally do not address vulnerabilities in transitive dependencies. While manual code vetting is likely infeasible at scale, automated analyzers could be adopted by package registries to analyze each update \cite{zimmermann2019small}. Similar processes are already in use in other areas. For example, the Apple App Store performs static analysis on all submitted binaries to help maintain the security and privacy of the Apple ecosystem.
+
+\subsection{Software Bill of Materials}
+A SBOM is a formal record containing the details and supply chain relationships of various components used in building software \cite{ntia2021minimum}. The National Telecommunications and Information Administration (NTIA) provides some minimum elements for a SBOM, shown in Table \ref{sbom}. 
+
+\begin{table}[htbp]
+\caption{Minimum elements of a SBOM as defined by NTIA \cite{ntia2021minimum}}
+\label{sbom}
+\begin{tabular}{|c|}
+\hline
+\textbf{Item} \\
+\hline
+Supplier \\
+\hline
+Component name \\
+\hline
+Version of component \\
+\hline
+Unique identifiers \\
+\hline
+Dependency relationship \\
+\hline
+Author of SBOM \\
+\hline
+Timestamp \\
+\hline
+Provide support for SBOM automation \\
+\hline
+Define the operations of SBOM requests, generation, and use\\
+\hline
+\end{tabular}
+\end{table}
+
+The SBOM is intended to provide developers and users of software with information regarding the supply chain, allowing them to track known and recently discovered security vulnerabilities. Recent high profile supply chain cyber attacks, such as Log4Shell, have highlighted the need for SBOMs, as they allowed companies to very quickly patch the vulnerability \cite{rl2021log4shell}. There are three primary formats for SBOMs: 1) Software Package Data eXchange (SPDX), 2) CycloneDX, and 3) Software Identification (SWID) Tagging \cite{xia2023empirical}. In 2021, the White House issues an executive order requiring all companies conducting business with the US government to provide SBOMs \cite{house2021executive}. However, despite these mandates, adoption in the industry and open source community is lagging. A large proportion of widely used software do not have SBOMs, and there is a lack of consensus regarding what to include in SBOMs, despite the official NTIA recommendations \cite{xia2023empirical}. The lack of widespread adoption is likely due, in part, to challenges with automated SBOM tools, lack of interoperability, time consumption, and risks of transparency \cite{zahan2023software}.
+
+\subsection{Zero-trust build pipelines}
 
 \subsection{Units}
 \begin{itemize}
