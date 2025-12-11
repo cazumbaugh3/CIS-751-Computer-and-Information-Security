@@ -180,4 +180,19 @@ N.~Zahan, E.~Lin, M.~Tamanna, W.~Enck, and L.~Williams, ``Software bills of
   materials are required. are we there yet?'' \emph{IEEE Security \& Privacy},
   vol.~21, no.~2, pp. 82--88, 2023.
 
+\bibitem{stafford2020zero}
+V.~Stafford, ``Zero trust architecture,'' \emph{NIST special publication}, vol.
+  800, no. 207, pp. 800--207, 2020.
+
+\bibitem{bondalapati2025secure}
+R.~C. Bondalapati, L.~A. Kumpatla, and S.~R. Karumanchi, ``Secure-by-design
+  ci/cd pipelines: A zero trust framework for cloud-native deployment
+  automation,'' \emph{Journal of Computer Science and Technology Studies},
+  vol.~7, no.~5, pp. 211--219, 2025.
+
+\bibitem{vemula2022integrating}
+V.~R. Vemula, ``Integrating zero trust architecture in devops pipeline:
+  Enhancing security in continuous delivery environments,'' \emph{Trans. Latest
+  Trends IoT}, vol.~5, no.~5, pp. 1--18, 2022.
+
 \end{thebibliography}
