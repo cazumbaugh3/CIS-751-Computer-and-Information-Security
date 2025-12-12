@@ -195,4 +195,20 @@ V.~R. Vemula, ``Integrating zero trust architecture in devops pipeline:
   Enhancing security in continuous delivery environments,'' \emph{Trans. Latest
   Trends IoT}, vol.~5, no.~5, pp. 1--18, 2022.
 
+\bibitem{vermazero}
+S.~Verma, ``Zero trust architecture in cloud-native environments:
+  Implementation strategies \& best practices.''
+
+\bibitem{prometheus}
+\BIBentryALTinterwordspacing
+Prometheus. (2025) Open source metrics and monitoring for your systems and
+  services. [Online]. Available: \url{https://prometheus.io/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{falco}
+\BIBentryALTinterwordspacing
+Falco. (2025) Detect security threats in real time. [Online]. Available:
+  \url{https://falco.org/}
+\BIBentrySTDinterwordspacing
+
 \end{thebibliography}

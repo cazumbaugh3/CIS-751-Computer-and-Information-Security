@@ -191,7 +191,13 @@ Organizations can employ multi-factor authentication (MFA) at various stages of 
 
 At the DevOps level, dividing the build pipeline into smaller, distinct pipeline phases can reduce the attack surface and may mitigate some of the consequences of a security breach. Isolating the development, testing, and production environments can improve security if strict access controls are put in place to determine which individuals can access each phase \cite{vemula2022integrating}. Additionally, linking security tools within the CI/CD pipeline, implementing automated policy enforcement, and adopting security-as-code can help to detect vulnerabilities and misconfigurations prior to deployment \cite{vermazero}.
 
-Constant observation and logging allow for organizations to quickly identify breaches and monitor for malicious activity. Threat detection and continuous monitoring can be integrated in the build pipeline by integrating security information and event management systems, using machine learning for anomaly detection, and automating incident responses \cite{vemula2022integrating}.
+Constant observation and logging allow for organizations to quickly identify breaches and monitor for malicious activity. Threat detection and continuous monitoring can be integrated in the build pipeline by integrating security information and event management systems, using machine learning for anomaly detection, and automating incident responses \cite{vemula2022integrating}. Constant observation and automated incident responses can reduce the mean time to respond by 59\% and improve resolution accuracy by 73\% \cite{bondalapati2025secure}. Various tools have been developed to address this, such as Prometheus \cite{prometheus} and Falco \cite{falco}, which can integrate into cloud environments such as Google Cloud and Amazon AWS.
+
+\section{Recent software supply chain security incidents}
+In recent years, several high-profile supply chain attacks have occurred that highlight the critical need for security at all levels of the chain. One of these attacks, the SolarWinds breach, prompted the White House to respond with Executive Order 14028, an order mandating cybersecurity enhancements for federal agencies and partners and instating the SBOM requirement for government contractors. 
+
+\subsection{Log4Shell}
+The Log4Shell vulnerability (CVE-2021-44228) was a zero-day vulnerability reported in November 2021 in Apache Log4j that allows attackers to execute arbitrary code \cite{log4shellcve}.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}    
