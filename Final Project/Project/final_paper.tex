@@ -14,6 +14,7 @@
 \captionsetup{justification=raggedright,singlelinecheck=false} % Align figure captions to the left
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{listings}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
         
@@ -197,7 +198,25 @@ Constant observation and logging allow for organizations to quickly identify bre
 In recent years, several high-profile supply chain attacks have occurred that highlight the critical need for security at all levels of the chain. One of these attacks, the SolarWinds breach, prompted the White House to respond with Executive Order 14028, an order mandating cybersecurity enhancements for federal agencies and partners and instating the SBOM requirement for government contractors. 
 
 \subsection{Log4Shell}
-The Log4Shell vulnerability (CVE-2021-44228) was a zero-day vulnerability reported in November 2021 in Apache Log4j that allows attackers to execute arbitrary code \cite{log4shellcve}.
+The Log4Shell vulnerability (CVE-2021-44228) was a zero-day vulnerability reported in November 2021 in Apache Log4j that allows attackers to execute arbitrary code \cite{log4shellcve}. Apache Log4j is a widely popular logging framework built for Java which enhances log messages with additional diagnostic information, formats messages to a given layout, can write messages to various targets, and perform message filtering \cite{log4j}. 
+
+The Log4Shell vulnerability enabled an attacker who could control log messages or log message parameters to execute arbitrary code when message lookup substitution was enabled. Log4Shell exploits vulnerabilities relating to the Java Naming and Directory Interface (JNDI) and message lookup substitution. The attacker injects a malicious JNDI lookup in an HTTP header which is logged by Log4j. When Log4j parses this string, the message substitution feature will cause the application to perform a JNDI lookup and reach out to the attackers LDAP server. The server then responds with references to malicious Java files, which are then downloaded and executed by the victim machine \cite{blackfog2025Log4Shell}. An example malicious payload is shown in Listing~\ref{lst:log4shell_exploit}.
+
+\begin{lstlisting}[
+	language=bash,
+	label={lst:log4shell_exploit},
+	caption={Example Log4Shell exploit payload}
+]
+GET /victim-endpoint
+Host: <HOST>
+User-Agent: ${jndi:ldap://malicious-server.com}
+\end{lstlisting}
+
+In Listing~\ref{lst:log4shell_exploit}, the User-Agent is crafted to mimic a message lookup substitution (\$\{...\}). If this is logged by a vulnerable version, Log4j will interpret the \textit{jndi} prefix as an instruction to perform a JNDI lookup at \textit{ldap://malicious-server.com}. When the attacker controlled \textit{malicious-server.com} is queried, it responds with a reference to some malicious Java classes that are then downloaded and executed by the vulnerable server. As the attacker controls which files are downloaded, they can execute arbitrary code on the victim machine.
+
+After it's disclosure, the Log4Shell vulnerability was given a CVSS score of 10 due to the low attack complexity, no privilege requirements, and no user interaction \cite{csrb2022log4shell}. The seriousness of this vulnerability was execerbated by its scope, with hundreds of millions of devices potentially vulnerable and around 2 million attack attempts per hour at the its height \cite{doll2025unraveling}. Apache released a patch for the vulnerability around 2 weeks after the vulnerability was reported, but took considerably longer to propagate through the software community. Use of Log4j was extensive, and many systems had direct and transitive dependencies that relied on Log4j, complicating the process and causing organizations to have to wait for third parties to complete their patch \cite{doll2025unraveling}. The effect of this vulnerability, and the difficulty organizations faced responding to it, highlight the need for strict supply chain security practices. Even if these practices could not have prevented the vulnerability, practices such as SBOMs and automated incident responses would have dramatically improved the response time, possibly reducing the number of successful exploits.
+
+\subsection{SolarWinds Attack}
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}    

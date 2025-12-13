@@ -15,45 +15,45 @@ Warning--empty journal in vermazero
 Warning--empty year in vermazero
 
 Done.
-You've used 35 entries,
+You've used 40 entries,
             4087 wiz_defined-function locations,
-            1006 strings with 13937 characters,
-and the built_in function-call counts, 25579 in all, are:
-= -- 2036
-> -- 600
+            1026 strings with 14675 characters,
+and the built_in function-call counts, 27433 in all, are:
+= -- 2182
+> -- 633
 < -- 209
-+ -- 327
-- -- 104
-* -- 1174
-:= -- 3829
-add.period$ -- 76
-call.type$ -- 35
-change.case$ -- 35
++ -- 343
+- -- 112
+* -- 1231
+:= -- 4175
+add.period$ -- 86
+call.type$ -- 40
+change.case$ -- 40
 chr.to.int$ -- 489
-cite$ -- 37
-duplicate$ -- 1830
-empty$ -- 2113
-format.name$ -- 127
-if$ -- 5973
+cite$ -- 42
+duplicate$ -- 1978
+empty$ -- 2290
+format.name$ -- 136
+if$ -- 6381
 int.to.chr$ -- 0
-int.to.str$ -- 35
-missing$ -- 332
-newline$ -- 140
-num.names$ -- 35
-pop$ -- 804
+int.to.str$ -- 40
+missing$ -- 368
+newline$ -- 163
+num.names$ -- 40
+pop$ -- 915
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 2
-skip$ -- 1982
+skip$ -- 2128
 stack$ -- 0
-substring$ -- 1173
-swap$ -- 1471
+substring$ -- 1174
+swap$ -- 1562
 text.length$ -- 46
 text.prefix$ -- 0
 top$ -- 5
-type$ -- 35
+type$ -- 40
 warning$ -- 2
-while$ -- 126
-width$ -- 37
-write$ -- 359
+while$ -- 131
+width$ -- 42
+write$ -- 407
 (There were 2 warnings)

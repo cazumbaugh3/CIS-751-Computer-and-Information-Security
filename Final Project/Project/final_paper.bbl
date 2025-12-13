@@ -211,4 +211,35 @@ Falco. (2025) Detect security threats in real time. [Online]. Available:
   \url{https://falco.org/}
 \BIBentrySTDinterwordspacing
 
+\bibitem{log4shellcve}
+\BIBentryALTinterwordspacing
+N.~V. Database. (2021) Cve-2021-44228 detail. [Online]. Available:
+  \url{https://prometheus.io/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{log4j}
+\BIBentryALTinterwordspacing
+Apache. (2025) Getting started. [Online]. Available:
+  \url{https://logging.apache.org/log4j/2.x/manual/getting-started.html}
+\BIBentrySTDinterwordspacing
+
+\bibitem{blackfog2025Log4Shell}
+\BIBentryALTinterwordspacing
+R.~Harpur. (2025) Log4shell – understanding the vulnerability and mitigation
+  steps. [Online]. Available:
+  \url{https://www.blackfog.com/log4shell-understanding-the-vulnerability-and-mitigation-steps/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{csrb2022log4shell}
+\BIBentryALTinterwordspacing
+C.~S.~R. Board. (2022) Review of the december 2021 log4j event. [Online].
+  Available:
+  \url{https://www.cisa.gov/sites/default/files/publications/CSRB-Report-on-Log4-July-11-2022_508.pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{doll2025unraveling}
+J.~Doll, C.~McCarthy, H.~McDougall, and S.~Bhunia, ``Unraveling log4shell:
+  Analyzing the impact and response to the log4j vulnerabil,'' \emph{arXiv
+  preprint arXiv:2501.17760}, 2025.
+
 \end{thebibliography}
