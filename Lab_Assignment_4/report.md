@@ -44,7 +44,8 @@ openssl req -new -key server.key -out server.csr -config openssl.conf
 Now that the server has generated a CSR, we can generate the servers certificate from the CSR and the root certificate/key. Note that `openssl.conf` file needs to be modified to use `policy = policy_anything` instead of `policy = policy_match` as the organization names differ between the CA and server.
 
 ```sh
-openssl ca -in server.csr -out server.crt -cert ca.crt -keyfile ca.key -config openssl.conf
+openssl ca -in server.csr -out server.crt -cert ca.crt \
+-keyfile ca.key -config openssl.conf
 ```
 ![Generating the server's certificates](./Screenshots/task2_d.png)
 
@@ -80,7 +81,7 @@ However, modifying the `.pem` file will prevent Firefox from establishing the co
 
 ![Invalid certificate if a byte of the certificate is modified](./Screenshots/task3_c.png)
 
-Currently, SEEDPKILab2020.com is set up such that it is mapped to localhost. Thus, it stands to reason that we should arrive at the same page by navigating to `https://localhost:4433` since we are cpnnecting to the same server. However, as shown in the below figure this is not the case. During registration, the certificate was created with the name "SEEDPKILab2020.com". When Firefox attempts to connect, it notices that the name of the site we are trying to connect to does not match the name on the certificate, and it generates a warning that the certificate is not valid for the name "localhost". We can bypass this by adding an exception in the browser, though this is a security feature and helps to protect us from visiting a malicious website.
+Currently, SEEDPKILab2020.com is set up such that it is mapped to localhost. Thus, it stands to reason that we should arrive at the same page by navigating to `https://localhost:4433` since we are connecting to the same server. However, as shown in the below figure this is not the case. During registration, the certificate was created with the name "SEEDPKILab2020.com". When Firefox attempts to connect, it notices that the name of the site we are trying to connect to does not match the name on the certificate, and it generates a warning that the certificate is not valid for the name "localhost". We can bypass this by adding an exception in the browser, though this is a security feature and helps to protect us from visiting a malicious website.
 
 ![The certificate name is not valid](./Screenshots/task3_d2.png)
 
@@ -169,12 +170,16 @@ Once this is added, the user will be pointed to our IP address (127.0.0.1) when 
 
 ![Invalid certificate for Facebook](./Screenshots/task5.png)
 
+\newpage
+
 ## Task 6
 However, if the CA's private key is compromised, the attacker can generate an arbitrary certificate and cause this attack to succeed. We can simulate this by generating a new CSR and certificate for the server, but changing the name to `facebook.com` as we did in Task 2.
 
 ```sh
-# Generating an impersonated certificate for facebook.com with the compromised CA's key
-openssl ca -in facebook.csr -out facebook.crt -cert ca.crt -keyfile ca.key -config openssl.conf
+# Generating an impersonated certificate for facebook.com 
+# with the compromised CA's key
+openssl ca -in facebook.csr -out facebook.crt -cert ca.crt \
+-keyfile ca.key -config openssl.conf
 ```
 
 We also need to point our server to the new certificate that has the name `facebook.com`.
