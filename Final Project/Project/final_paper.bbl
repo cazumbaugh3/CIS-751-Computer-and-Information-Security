@@ -242,4 +242,36 @@ J.~Doll, C.~McCarthy, H.~McDougall, and S.~Bhunia, ``Unraveling log4shell:
   Analyzing the impact and response to the log4j vulnerabil,'' \emph{arXiv
   preprint arXiv:2501.17760}, 2025.
 
+\bibitem{gao2021solarwind}
+\BIBentryALTinterwordspacing
+U.~G.~A. Office. (2021) Solarwinds cyberattack demands significant federal and
+  private-sector response (infographic). [Online]. Available:
+  \url{https://www.gao.gov/blog/solarwinds-cyberattack-demands-significant-federal-and-private-sector-response-infographic}
+\BIBentrySTDinterwordspacing
+
+\bibitem{anisa2024solarwinds}
+G.~Anisa and F.~Widianingsih, ``Solarwinds attack: Stages, implications, and
+  mitigation strategies in the cyber age,'' \emph{Electronic Integrated
+  Computer Algorithm Journal}, vol.~2, no.~1, pp. 47--52, 2024.
+
+\bibitem{kovacas2020solarwinds}
+\BIBentryALTinterwordspacing
+E.~Kovacs. (2020) Solarwinds likely hacked at least one year before breach
+  discovery. [Online]. Available:
+  \url{https://www.securityweek.com/solarwinds-likely-hacked-least-one-year-breach-discovery/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{slowik2020solarwinds}
+\BIBentryALTinterwordspacing
+J.~Slowik. (2020) Continuous eruption: Further analysis of the solarwinds
+  supply chain incident. [Online]. Available:
+  \url{https://www.domaintools.com/resources/blog/continuous-eruption-further-analysis-of-the-solarwinds-supply-incident/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{alkhadra2021solar}
+R.~Alkhadra, J.~Abuzaid, M.~AlShammari, and N.~Mohammad, ``Solar winds hack:
+  In-depth analysis and countermeasures,'' in \emph{2021 12th International
+  Conference on Computing Communication and Networking Technologies
+  (ICCCNT)}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2021, pp. 1--7.
+
 \end{thebibliography}
